@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이미지 및 멀티미디어 태그</title>
+  </head>
+  <body>
+    <h2>이미지 태그</h2>
+    <!-- loading="lazy" 
+     : 사용자가 화면을 내릴 때 성능 최적화 -->
+    <img src="./assets/palm.jpg" alt="새 이미지" width="200" loading="lazy" />
+
+    <h3>고정 크기 (픽셀 단위)</h3>
+    <p>화면 크기와 관계없이 고정된 크기</p>
+    <img src="assets/cake.jpg" width="200" height="120" />
+    <img src="assets/pizza.jpg" width="200" height="120" />
+
+    <h3>가변 크기 (퍼센트 단위)</h3>
+    <p>부모 태그의 너비에 따라 크기가 자동으로 조절</p>
+    <img src="assets/cake.jpg" width="49%" height="120" />
+    <img src="assets/pizza.jpg" width="49%" height="120" />
+
+    <h3>반응형 이미지</h3>
+    <p>디바이스 너비에 따라 최적의 이미지를 자동 선택</p>
+    <img
+      src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200"
+      srcset="
+        https://images.unsplash.com/photo-1518770660439-4636190af475?w=480   480w,
+        https://images.unsplash.com/photo-1518770660439-4636190af475?w=800   800w,
+        https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200 1200w
+      "
+      sizes="(max-width: 600px) 480px, (max-width: 900px) 800px, 1200px"
+      alt=""
+      width="100%"
+    />
+
+    <h2>오디오 태그</h2>
+    <!-- 
+    controls : 재생 컨트롤러 표시
+    loop : 반복 재생
+    -->
+    <audio src="assets/audio.mp3" controls loop>
+      <a href="assets/audio.mp3" download>오디오 다운로드</a>
+    </audio>
+
+    <h2>비디오 태그</h2>
+  </body>
+</html>
