@@ -1,0 +1,50 @@
+body {
+  background-color: purple;
+}
+.radius-box {
+  width: 200px;
+  height: 200px;
+}
+.radius1 {
+  width: 200px;
+  height: 200px;
+  background-image: url(../01_HTML/assets/hui.png);
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: scroll;
+  margin: auto;
+}
+.center-box {
+  width: 250px;
+  height: 400px;
+  padding: 20px;
+  border: 1px solid white;
+  border-radius: 20px;
+  margin: auto;
+}
+h2 {
+  color: white;
+  text-align: center;
+}
+.text-box {
+  width: 250px;
+  height: 50px;
+  font-weight: bold;
+  border: 1px solid white;
+  background-color: purple;
+  color: white;
+  text-align: center;
+  line-height: 50px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+#GitHub:hover {
+  background-color: white;
+  color: black;
+}
+#Instargram:hover {
+  background-color: white;
+  color: black;
+}

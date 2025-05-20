@@ -91,3 +91,125 @@
 .radius2 {
   border-radius: 50%;
 }
+/* box-sizing */
+.box {
+  width: 300px;
+  height: 200px;
+  padding: 20px;
+  border: 10px solid;
+  background-color: lightcoral;
+  margin: 10px;
+}
+.box-content {
+  box-sizing: content-box;
+}
+.box-border {
+  box-sizing: border-box;
+}
+/* display */
+.display {
+  background-color: pink;
+  padding: 10px;
+  margin: 5px;
+  width: 150px;
+  height: 70px;
+}
+.display-inline {
+  display: inline;
+}
+.display-block {
+  display: block;
+}
+.display-inline-block {
+  display: inline-block;
+}
+/* float */
+.float {
+  float: left;
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+  background: skyblue;
+  text-align: center;
+  line-height: 80px;
+}
+/* position */
+#outer {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  background: #f4f4f4;
+  overflow: auto;
+}
+.position-box {
+  width: 100px;
+  height: 100px;
+}
+#relative {
+  background: orange;
+  position: relative;
+  /* top, bottom, left, right 속성과 같이 사용*/
+  bottom: 100px;
+  right: -50px;
+}
+#absolute {
+  background: green;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+}
+#fixed {
+  background: red;
+  position: fixed;
+  right: 20px;
+  top: 30px;
+}
+#sticky {
+  background: blue;
+  position: sticky;
+  top: 0;
+}
+.visibility {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  background: lightgray;
+  display: inline-block;
+}
+#vis2 {
+  visibility: visible;
+}
+#vis1 {
+  visibility: hidden;
+}
+#dis1 {
+  display: none;
+}
+#z-outer {
+  width: 200px;
+  height: 200px;
+  background: #ddd;
+  position: relative;
+}
+.z-index {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  opacity: 0.5;
+}
+#z-index1 {
+  background: red;
+  z-index: 1;
+  top: 20px;
+  left: 20px;
+}
+#z-index2 {
+  background: green;
+  z-index: 2;
+  top: 40px;
+  left: 40px;
+}
+#z-index3 {
+  background: blue;
+  z-index: 9999;
+}
