@@ -1,0 +1,70 @@
+:root {
+  /* 고정 너비 width를 변수로 지정 */
+  --main-width: 350px;
+  --main-color: rgba(0, 0, 0, 0.5);
+}
+header {
+  position: fixed;
+  /* width: 350px; 고정 너비 */
+  color: white;
+  width: var(--main-width);
+  height: 100%;
+  /* 세로로 fixed일 때는 height: 100% 와 100vh 가 같다*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--main-color);
+  background-image: url(assets/background.jpg);
+  background-blend-mode: color;
+  background-size: cover;
+  background-position: center;
+}
+header h1 {
+  font-size: 5rem;
+  padding-top: 20px;
+  /* text-decoration: underline; */
+  padding-bottom: 5x;
+  padding-inline: 10px;
+  border-bottom: 1px solid white;
+}
+header nav {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 100px;
+  gap: 10px;
+}
+header nav a {
+  font-size: 25px;
+  font-weight: bold;
+  text-decoration: underline;
+  padding: 10px;
+}
+section {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  /* padding-left: 350px; 고정 너비 */
+  padding-left: var(--main-width);
+  /* padding-left: calc(var(--section-width) + 10px); -> 섹션의 패딩 값을 추가하여 계산 가능 */
+}
+section h2,
+p {
+  /* 이미지에 margin: auto 가 안 먹힐 때 쓸 수 있는 방법 -> text-align: center */
+  text-align: left;
+}
+section h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding: 10px;
+}
+section img {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+}
+section p {
+  padding: 20px;
+  line-height: 1.5;
+}
