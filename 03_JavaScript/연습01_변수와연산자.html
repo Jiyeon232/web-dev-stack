@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>변수 & 연산자 연습문제</title>
+  </head>
+  <body>
+    <h1>변수 & 연산자 연습문제</h1>
+    <ol style="line-height: 2">
+      <li>
+        킬로그램(kg)을 파운드(lb)로 환산하여 console에 출력하시오. (1kg = 2.2lb)
+        <script>
+          const kg = 60;
+          // Q1: 여기에 코드를 작성하세요
+          console.log(kg * 2.21 + " 파운드");
+        </script>
+      </li>
+
+      <li>
+        제곱미터(㎡)를 평(평수)으로 환산하여 출력하시오. (1㎡ = 0.3평)
+        <script>
+          const m2 = 99;
+          // Q2: 여기에 코드를 작성하세요
+          console.log(m2 * 0.3 + "평");
+        </script>
+      </li>
+
+      <li>
+        사다리꼴의 넓이를 구하시오. (윗변 + 밑변) / 2 * 높이
+        <script>
+          const upper = 10;
+          const lower = 14;
+          const height = 4;
+          // Q3: 여기에 코드를 작성하세요
+          console.log("넓이:" + ((upper + lower) / 2) * height);
+        </script>
+      </li>
+
+      <li>
+        예금 12,000,000원을 연이율 4%로 정기예금했을 때 월 이자를 구하시오.
+        <script>
+          // Q4: 여기에 코드를 작성하세요
+          const budget = 12000000;
+          const r = 0.04;
+          console.log((budget * r) / 12 + "원");
+        </script>
+      </li>
+
+      <li>
+        올해가 2025년일 때, 나이(예: 55)를 기준으로 출생연도를 계산하시오.
+        <script>
+          // Q5: 여기에 코드를 작성하세요
+          const year = 2025;
+          const age = 55;
+          console.log(year - age + 1 + "년");
+        </script>
+      </li>
+
+      <li>
+        아이스 아메리카노 한 잔 5,500원, 가진 돈이 15,000원일 때 최대 몇 잔,
+        잔돈은 얼마?
+        <script>
+          // Q6: 여기에 코드를 작성하세요
+          const money = 15000;
+          const price = 5500;
+          console.log(parseInt(money / price) + "잔,", (money % price) + "원");
+        </script>
+      </li>
+
+      <li>
+        양꼬치 1인분 12,000원, 음료수 2,000원. 양꼬치 64인분, 음료 6개.
+        10인분마다 음료 1개 서비스. 총 지불 금액?
+        <script>
+          // Q7: 여기에 코드를 작성하세요
+          const menu1price = 12000;
+          const menu2price = 2000;
+          const menu1num = 64;
+          const menu2num = 6;
+          const menu1 = menu1num * menu1price;
+          const menu2 = menu2num * menu2price;
+          console.log(menu1 + menu2 + "원");
+        </script>
+      </li>
+
+      <li>
+        두 자리 정수(예: 73)의 각 자릿수를 더한 값을 구하시오. (7 + 3 = 10)
+        <script>
+          // Q8: 여기에 코드를 작성하세요
+          const number = 73;
+          const a = parseInt(number / 10);
+          const b = number % 10;
+          console.log(a + b);
+        </script>
+      </li>
+
+      <li>
+        이름, 나이, 취미를 변수로 저장한 후 소개 문장을 console에 출력하시오.
+        <script>
+          // Q9: 여기에 코드를 작성하세요
+          const myname = "박지연";
+          const myage = 27;
+          const myhobby = "영화 감상";
+          console.log(
+            "제 이름은 " +
+              myname +
+              "이고, " +
+              "나이는 " +
+              myage +
+              "살 입니다.\n" +
+              "취미는 " +
+              myhobby +
+              "입니다."
+          );
+        </script>
+      </li>
+
+      <li>
+        문자열 "100"과 숫자 100의 비교 결과를 `==`와 `===`로 비교하고 결과를
+        console에 출력하시오.
+        <script>
+          // Q10: 여기에 코드를 작성하세요
+          console.log("100" == 100);
+          console.log("100" === 100);
+        </script>
+      </li>
+    </ol>
+  </body>
+</html>
