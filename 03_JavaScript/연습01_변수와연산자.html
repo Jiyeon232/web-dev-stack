@@ -77,8 +77,9 @@
           const menu2price = 2000;
           const menu1num = 64;
           const menu2num = 6;
+          const service = parseInt(menu1num / 10);
           const menu1 = menu1num * menu1price;
-          const menu2 = menu2num * menu2price;
+          const menu2 = (menu2num - service) * menu2price;
           console.log(menu1 + menu2 + "원");
         </script>
       </li>
