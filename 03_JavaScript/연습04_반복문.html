@@ -22,8 +22,9 @@
         구구단 2단을 출력하시오.
         <script>
           // Q2
-          for (let i = 1; i < 10; i++) {
+          for (let i = 1; i <= 9; i++) {
             console.log("2 *", i, "=", 2 * i);
+            // console.log(`2 x ${i} = ${2 * i}`); // 템플릿 사용하기
           }
         </script>
       </li>
@@ -32,12 +33,12 @@
         1부터 사용자에게 입력받은 숫자까지의 합을 출력하시오. (prompt 사용)
         <script>
           // Q3
-          const input = prompt("숫자를 입력하세요");
+          const input = Number(prompt("숫자를 입력하세요")); // 더 명확하게 Number로 타입 바꿔주기
           let sum = 0;
           for (let i = 1; i <= input; i++) {
             sum += i;
           }
-          console.log(sum);
+          console.log("합 : " + sum);
         </script>
       </li>
 
@@ -46,7 +47,8 @@
         <script>
           // Q4
           for (let i = 1; i <= 100; i++) {
-            if (i % 3 != 0) continue;
+            // if (i % 3 === 0)
+            if (i % 3 !== 0) continue;
             console.log(i);
           }
         </script>
@@ -83,8 +85,22 @@
         <script>
           const nums = [3, 45, 21, 99, 18, 77];
           // Q7
+          // sort() 사용
           nums.sort((a, b) => a - b);
           console.log(nums[nums.length - 1]);
+
+          nums.sort((a, b) => b - a);
+          console.log(nums[0]);
+
+          // 반복문 사용
+          let max = nums[0];
+          for (let i = 1; i < nums.length; i++) {
+            if (nums[i] > max) max = nums[i];
+          }
+          console.log("가장 큰 숫자 : ", max);
+
+          // Math.max 사용
+          console.log(Math.max(...nums));
         </script>
       </li>
 
@@ -95,7 +111,6 @@
           // Q8
           for (let i = 1; i <= 10; i++) {
             if (i % 2 === 0) continue;
-
             console.log(i);
             if (i === 7) break;
           }
@@ -112,14 +127,19 @@
         <script>
           const target = Math.floor(Math.random() * 100) + 1; // 1~100 랜덤 숫자
           console.log(target);
+          let count = 0; // 시도 횟수
           while (true) {
-            const randomNum = prompt("1~100 사이의 랜덤한 숫자를 입력하세요");
+            count++;
+            const randomNum = Number(
+              prompt("1~100 사이의 랜덤한 숫자를 입력하세요")
+            );
             if (randomNum > target) {
-              console.log("너무 큽니다");
+              console.log("너무 큽니다"); // console 대신 alert 사용 가능!
             } else if (randomNum < target) {
-              console.log("너무 작습니다");
+              console.log("너무 작습니다"); // console 대신 alert 사용 가능!
             } else {
-              console.log("정답입니다");
+              // console.log("정답입니다");
+              console.log(`${count}번 만에 성공!`);
               break;
             }
           }

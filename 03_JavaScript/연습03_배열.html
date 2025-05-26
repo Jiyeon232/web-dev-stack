@@ -39,8 +39,12 @@
           const sliced = music.slice(1, 4);
           console.log(sliced);
           // [OST]
-          const ost = music.splice(music.indexOf("OST"));
+          const ost = music.slice(music.indexOf("OST"));
           console.log(ost);
+
+          // 2가지 방법
+          console.log(music[music.length - 1]);
+          console.log(music.slice(4));
         </script>
       </li>
 
