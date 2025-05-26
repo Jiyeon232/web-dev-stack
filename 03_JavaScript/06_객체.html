@@ -48,9 +48,9 @@
 
     <h2>1. 객체 생성과 속성/함수 추가</h2>
     <script>
-      const person1 = {};
+      const person1 = {}; // 빈 객체
       person1.name = "우규빈";
-      person1["age"] = 9;
+      person1["age"] = 9; // 대괄호로도 추가 가능, .을 더 많이 사용함!
       person1.hello = function () {
         console.log(`안녕? 나는 ${this.name}이야, 나이는 ${this.age}살!`);
       };
