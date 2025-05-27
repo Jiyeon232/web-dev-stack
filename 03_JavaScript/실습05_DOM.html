@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>실습05_DOM</title>
+    <link rel="stylesheet" href="../02_CSS/reset.css" />
+    <link rel="stylesheet" href="실습05_DOM.css" />
+  </head>
+  <body>
+    <script>
+      const now = new Date();
+      const date1 = `${now.getFullYear()}년 ${
+        now.getMonth() + 1
+      }월 ${now.getDate()}일 (${now.getDay()})`;
+      console.log(date1);
+
+      const time = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+      setInterval(() => {
+        console.log(time);
+      }, 1000);
+
+      const date2 = `${now}일 ${now}시간 ${now}분 ${now}초 `;
+      //console.log("올해 남은 시간", date2);
+    </script>
+    <script src="실습05_DOM.js"></script>
+  </body>
+</html>
