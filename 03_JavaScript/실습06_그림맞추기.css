@@ -1,36 +1,45 @@
 body {
   height: 100vh;
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0;
 }
 img {
   width: 200px;
-  height: 220px;
+  height: 200px;
   border-radius: 50%;
+  object-fit: cover;
   margin: 10px;
 }
-#click {
-  width: 70px;
+button {
+  border: none;
   height: 40px;
+  font-size: 1rem;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: tomato;
+  color: navy;
+}
+button:last-child {
+  background-color: navy;
+  color: tomato;
+}
+/*
+#click {
   background-color: orange;
   color: purple;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 5px;
-  border: 0;
 }
 #restart {
-  width: 80px;
-  height: 40px;
   background-color: purple;
   color: orange;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 5px;
-  border: 0;
 }
+*/
 h2 {
   font-style: italic;
+  visibility: hidden;
 }
