@@ -92,5 +92,22 @@ tel.addEventListener("input", (e) => {
   }
 });
 
-submit.addEventListener("click", (e) => {});
-reset.addEventListener("click", (e) => {});
+submit.addEventListener("click", (e) => {
+  if (
+    inputId.test(e.target.value) &&
+    inputPw.test(e.target.value) &&
+    e.target.value === pw.value &&
+    inputName.test(e.target.value) &&
+    inputName.test(e.target.value) &&
+    inputMail.test(e.target.value) &&
+    inputTel.test(e.target.value)
+  ) {
+    submit.disabled = false;
+  } else {
+    submit.disabled = true;
+    e.preventDefault();
+  }
+});
+reset.addEventListener("click", (e) => {
+  input.innerHTML = "";
+});
