@@ -7,7 +7,7 @@ body {
   align-items: center;
   margin: 0;
 }
-section {
+form {
   width: 70%;
   border: 1px solid lightgray;
   border-radius: 5px;
@@ -35,6 +35,6 @@ button {
   color: white;
   margin: 5px;
 }
-#reset {
+#cancle {
   background-color: mediumturquoise;
 }
