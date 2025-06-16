@@ -112,9 +112,8 @@ public class VariablePractice {
 	public void method5() {
 		System.out.print("영어 문자열을 입력하세요 > ");
 		String str = sc.next();
-		char ch1 = str.length(0);
 		
-		System.out.printf("%s");
+		System.out.printf("%c", str);
 	}
 
 	/*
