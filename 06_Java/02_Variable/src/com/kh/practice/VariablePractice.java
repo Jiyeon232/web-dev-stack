@@ -113,7 +113,8 @@ public class VariablePractice {
 		System.out.print("영어 문자열을 입력하세요 > ");
 		String str = sc.next();
 		
-		System.out.printf("%c", str);
+		int len = str.length();
+		System.out.printf("%d\n", len); // 5
 	}
 
 	/*
@@ -127,7 +128,7 @@ public class VariablePractice {
 		System.out.print("문자 하나를 입력하세요 > ");
 		String ch1 = sc.next();
 		
-		//System.out.printf("%s", ch1);
+		System.out.printf("%s\n", ch1); // A
 
 	}
 	
