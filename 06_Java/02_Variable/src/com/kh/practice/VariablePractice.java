@@ -136,11 +136,11 @@ public class VariablePractice {
 	public void method6() {
 		System.out.print("문자 하나를 입력하세요 > ");
 		char ch = sc.nextLine().charAt(0);
-		int unicodeA = (int) ch;
-		int unicodeB = (int) ch + 1;
+		int unicode1 = (int) ch;
+		int unicode2 = (int) ch + 1;
 		
-		System.out.println("A unicode : " + unicodeA);
-		System.out.println("B unicode : " + unicodeB);
+		System.out.println("unicode : " + unicode1);
+		System.out.println("next unicode : " + unicode2);
 	}
 	
 	/*

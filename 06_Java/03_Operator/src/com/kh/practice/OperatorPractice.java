@@ -107,8 +107,13 @@ public class OperatorPractice {
 		System.out.print("바구니 크기 입력 > ");
 		int basket = sc.nextInt();
 		
-		int result = apple / basket + 1;
-		System.out.println(result + "개");
+		int result = apple / basket;
+		
+		if (apple % basket == 0) {
+			System.out.println(result + "개");
+		} else {
+			System.out.println(result + 1 + "개");
+		}
 	}
 	
 	//초 단위 시간을 입력받아 1시간 1분 1초 형식으로 출력
