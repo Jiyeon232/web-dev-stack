@@ -30,7 +30,7 @@ public class VariablePractice {
 		int adultPrice = 10000;
 		int teenPrice = 7000;
 		
-		System.out.println(adultNum * adultPrice + teenNum * teenPrice);
+		System.out.println(adultNum * adultPrice + teenNum * teenPrice + "원");
 
 	}
 	
@@ -49,10 +49,10 @@ public class VariablePractice {
 		int z = 9;
 		
 		// 코드 적어주세요!
-
-		System.out.println("x=" + x);
-		System.out.println("y=" + y);
-		System.out.println("z=" + z);
+		
+		System.out.println("x=" + y);
+		System.out.println("y=" + z);
+		System.out.println("z=" + x);
 	}
 	
 	
@@ -111,10 +111,19 @@ public class VariablePractice {
 	 * */
 	public void method5() {
 		System.out.print("영어 문자열을 입력하세요 > ");
-		String str = sc.next();
+		String str = sc.nextLine();
+		// System.out.println(str); // apple
 		
 		int len = str.length();
-		System.out.printf("%d\n", len); // 5
+		// System.out.println(len); // 5
+		
+		char ch1 = str.charAt(0);
+		char ch2 = str.charAt(1);
+		char ch3 = str.charAt(len - 1);
+		
+		System.out.println(ch1); // a
+		System.out.println(ch2); // p
+		System.out.println(ch3); // e
 	}
 
 	/*
@@ -126,10 +135,12 @@ public class VariablePractice {
 	 * */
 	public void method6() {
 		System.out.print("문자 하나를 입력하세요 > ");
-		String ch1 = sc.next();
+		char ch = sc.nextLine().charAt(0);
+		int unicodeA = (int) ch;
+		int unicodeB = (int) ch + 1;
 		
-		System.out.printf("%s\n", ch1); // A
-
+		System.out.println("A unicode : " + unicodeA);
+		System.out.println("B unicode : " + unicodeB);
 	}
 	
 	/*
