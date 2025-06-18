@@ -362,15 +362,25 @@ public class ConditionPractice {
         System.out.print("출석 횟수 : ");
         int attend = sc.nextInt();
         
+        double total = (double)(score1 * 0.2 + score2 * 0.3 + score3 * 0.3 + attend);
+        
         System.out.println("===========결과==========");
-        System.out.println("중간 고사 점수(20) : " + score1);
-        System.out.println("기말 고사 점수(30) : " + score2);
-        System.out.println("과제 고사 점수(30) : " + score3);
-        System.out.println("출석 점수(20) : " + attend);
-        System.out.println("총점 : ");
-        System.out.println("PASS");
-        System.out.printf("FAIL [출석 횟수 부족] (%d/20)\n", attend);
-        System.out.printf("FAIL [점수 미달] (총점 %f)\n", "총점");
+        
+        if (total >= 70 && attend >= 14) {
+            System.out.printf("중간 고사 점수 : %.1f\n", score1 * 0.2);
+            System.out.printf("기말 고사 점수 : %.1f\n", score2 * 0.3);
+            System.out.printf("과제 고사 점수 : %.1f\n", score3 * 0.3);
+            System.out.printf("출석 점수 : %.1f\n", (double)attend);
+            System.out.printf("총점 : %.1f\n", total);
+            System.out.println("PASS");        	
+        } else if (total < 70 && attend >= 14) {
+        	System.out.printf("FAIL [점수 미달] (총점 %.1f)\n", total);
+        } else if (total >= 70 && attend < 14) {
+        	System.out.printf("FAIL [출석 횟수 부족] (%d/20)\n", attend);
+        } else if (total < 70 && attend < 14) {
+        	System.out.printf("FAIL [출석 횟수 부족] (%d/20)\n", attend);
+            System.out.printf("FAIL [점수 미달] (총점 %.1f)\n", total);
+        }        
     }
     
 }

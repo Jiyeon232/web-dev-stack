@@ -10,11 +10,11 @@ class LoopPractice {
 	public static void main(String[] args) {
 
 		LoopPractice l = new LoopPractice();
-		l.method1();
-		l.method2();
-		l.method3();
-		l.method4();
-		l.method5();
+		//l.method1();
+		//l.method2();
+		//l.method3();
+		//l.method4();
+		//l.method5();
 		l.method6();
 		
 	}
@@ -28,14 +28,37 @@ class LoopPractice {
         2
         1
      */
-    public void method1() {
+	public void method1() {
+		System.out.print("1 ~ 100 사이의 숫자 입력 > ");
+		int num = Integer.parseInt(sc.nextLine());
 
-    }
+		while (1 <= num && num <= 100) {
+			for (int i = 5; i > 0; i--) {
+				System.out.println(i);
+			}
+			break;
+		}
+	}
 
     // 1+(-2)+3+(-4)+...과 같은 식으로 계속 더해나갔을 때, 몇까지 더해야 총합이 100 이상 되는지 출력하시오.
-    public void method2() {
-    	
-    }
+	public void method2() {
+		int i = 0;
+		int sum = 0;
+
+		while (true) {
+			if (sum >= 100) {
+				System.out.println(i + "까지 더해야 총합이 100 이상");
+				break;
+			} else {
+				i++;
+				if (i % 2 != 0) {
+					sum += i;
+				} else if (i % 2 == 0) {
+					sum -= i;
+				}
+			}
+		}
+	}
 
     /*
         사용자로부터 문자열을 입력 받고 문자열에서 검색될 문자를 입력 받아 해당 문자열에 그 문자가 몇 개 있는지 개수를 출력하세요. 
@@ -46,7 +69,19 @@ class LoopPractice {
 
     */
     public void method3() {
+    	System.out.print("문자열을 입력하세요 > ");
+    	String str = sc.nextLine();
+    	System.out.print("검색할 문자를 입력하세요 > ");
+    	char word = sc.nextLine().charAt(0);
 
+    	int count = 0;
+    	for (int i = 0; i < str.length(); i++) {
+    		//System.out.println(str.charAt(i));
+    		if (str.charAt(i) == word) {
+    			count++;
+    		}
+    	}
+    	System.out.println(word + " : " + count + "개");
     }
 
     /*
@@ -59,9 +94,18 @@ class LoopPractice {
         4
         0
      */
-    public void method4() {
+	public void method4() {
+		while (true) {
+			int random = (int) (Math.random() * 11);
 
-    }
+			if (random != 0) {
+				System.out.println(random);
+			} else if (random == 0) {
+				System.out.println(random);
+				break;
+			}
+		}
+	}
 
     /*
         주사위를 10번 굴렸을 때 각 눈의 수가 몇 번 나왔는지 출력하세요. (random 사용!)
@@ -75,7 +119,11 @@ class LoopPractice {
 
      */
     public void method5() {
-    	
+    	for (int i = 1; i <= 10; i++) {
+    		System.out.println(i + "번째");
+    		int random = (int) (Math.random() * 6 + 1);
+    		System.out.println("주사위 눈 : " + random);
+    	}
     }
 
     /*
@@ -101,7 +149,15 @@ class LoopPractice {
 	    비긴 횟수 : 1, 진 횟수 : 1, 이긴 횟수 : 1
     */
     public void method6() {
-    
+    	System.out.print("당신의 이름을 입력해주세요 : ");
+    	String name = sc.nextLine();
+    	System.out.print("가위바위보 : ");
+    	String userInput = sc.nextLine();
+    	
+    	
+    	System.out.println("비겼습니다.");
+    	System.out.println("졌습니다 ㅠㅠ");
+    	System.out.println("이겼습니다 !");
     }
 
 }
