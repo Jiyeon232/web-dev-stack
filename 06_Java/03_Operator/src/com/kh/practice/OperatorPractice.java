@@ -9,14 +9,14 @@ public class OperatorPractice {
 	public static void main(String[] args) {
 
 		OperatorPractice o = new OperatorPractice();
-		o.method1();
-		o.method2();
-		o.method3();
-		o.method4();
-		o.method5();
-		o.method6();
-		o.method7();
-		o.method8();
+		//o.method1();
+		//o.method2();
+		//o.method3();
+		//o.method4();
+		//o.method5();
+		//o.method6();
+		//o.method7();
+		//o.method8();
 		
 	}
 
@@ -38,7 +38,8 @@ public class OperatorPractice {
 		System.out.print("숫자를 입력하세요 > ");
 		int num = sc.nextInt();
 		
-		int result = (num / 100) * 100;
+		int result = (num / 100) * 100; // 100의 자리만 출력
+		//int result = num - (num % 100); // 10의 자리 이하를 버리기
 		
 		System.out.println(result);
 	}
@@ -61,8 +62,13 @@ public class OperatorPractice {
 		System.out.print("숫자를 입력하세요 > ");
 		int num = sc.nextInt();
 		
+		// 조건문 사용
 		if (num % 2 == 0) System.out.println("짝수다");
 		else System.out.println("짝수가 아니다");
+		
+		// 삼항연산자 사용
+		String result = (num % 2 == 0) ? "짝수다" : "짝수가 아니다";
+		System.out.println(result);
 	}
 
 	//주민번호(-포함)를 입력받아 남자인지 여자인지 구분하여 출력하세요
@@ -71,6 +77,7 @@ public class OperatorPractice {
 		String no = sc.nextLine();
 	    String noStr = no.substring(7,8);
 		
+	    // switch문 사용
 		switch(noStr) {
 		case "1" :
 		case "3" :
@@ -82,6 +89,10 @@ public class OperatorPractice {
 			break;
 		default : System.out.println("잘못 입력했습니다");
 		}
+		
+		// 삼항연산자 사용
+		System.out.println(no == "1" || no == "3" ? "남자"
+				         : no == "2" || no == "4" ? "여자" : "잘못 입력했습니다.");
 	}
 
 	//나이를 입력 받아 어린이(13세 이하)인지, 청소년(13세 초과 ~ 19세 이하)인지, 
@@ -90,6 +101,7 @@ public class OperatorPractice {
 		System.out.print("나이 입력 > ");
 		int age = sc.nextInt();
 		
+		// 조건문 사용
 		if (age > 19) {
 			System.out.println("성인");
 		} else if (age > 13) {
@@ -97,6 +109,9 @@ public class OperatorPractice {
 		} else {
 			System.out.println("어린이");
 		}
+		
+		// 삼항연산자 사용
+		System.out.println(age > 19 ? "성인" : age > 13 ? "청소년" : "어린이");
 	}
 
 	//사과의 개수와 바구니의 크기(바구니 1개의 들어가는 사과의 개수)를 입력받아
@@ -109,11 +124,15 @@ public class OperatorPractice {
 		
 		int result = apple / basket;
 		
+		// 조건문 사용
 		if (apple % basket == 0) {
 			System.out.println(result + "개");
 		} else {
 			System.out.println(result + 1 + "개");
 		}
+		
+		// 삼항연산자 사용
+		System.out.println(apple % basket == 0 ? result : result + 1 );
 	}
 	
 	//초 단위 시간을 입력받아 1시간 1분 1초 형식으로 출력
@@ -122,8 +141,11 @@ public class OperatorPractice {
 		int time = sc.nextInt();
 		
 		int hour = time / 3600;
+		// 입력한 시간(time)에서 시간(hour)을 마이너스 해서 다시 time 변수에 대입하기
+		//time = time - hour * 3600;
+		//time -= hour * 3600; --> 복합대입연산자 사용
 		int minute = (time % 3600) / 60;
-		int second = ((time % 3600) % 60) % 60;
+		int second = (time % 3600) % 60;
 		
 		//System.out.println(hour);
 		//System.out.println(minute);

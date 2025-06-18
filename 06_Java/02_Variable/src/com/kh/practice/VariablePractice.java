@@ -8,13 +8,13 @@ public class VariablePractice {
 	
 	public static void main(String[] args) {
 		VariablePractice v = new VariablePractice();
-		v.method1();
-		v.method2();
-		v.method3();
-		v.method4();
-		v.method5();
-		v.method6();
-		v.method7();
+		//v.method1();
+		//v.method2();
+		//v.method3();
+		//v.method4();
+		//v.method5();
+		//v.method6();
+		//v.method7();
 	}
 	
 	/*
@@ -49,10 +49,14 @@ public class VariablePractice {
 		int z = 9;
 		
 		// 코드 적어주세요!
+		int temp = x;
+		x = y;
+		y = z;
+		z = temp;
 		
-		System.out.println("x=" + y);
-		System.out.println("y=" + z);
-		System.out.println("z=" + x);
+		System.out.println("x=" + x);
+		System.out.println("y=" + y);
+		System.out.println("z=" + z);
 	}
 	
 	
@@ -69,11 +73,12 @@ public class VariablePractice {
 	 * */
 	public void method3() {
 		System.out.print("첫번째 숫자를 입력하세요 > ");
-		int firstNum = sc.nextInt();
+		int firstNum = sc.nextInt(); // Integer.parseInt(sc.nextLine()); -> 문자열을 int로
 		
 		System.out.print("두번째 숫자를 입력하세요 > ");
 		int secondNum = sc.nextInt();
 		
+		// 정렬 : 내가 정렬하고자 하는 부분 선택하시고 Ctrl + Shift + F
 		System.out.printf("%d + %d = %d\n", firstNum, secondNum, firstNum + secondNum);
 		System.out.printf("%d - %d = %d\n", firstNum, secondNum, firstNum - secondNum);
 		System.out.printf("%d * %d = %d\n", firstNum, secondNum, firstNum * secondNum);
@@ -92,13 +97,14 @@ public class VariablePractice {
 	 * */
 	public void method4() {
 		System.out.print("가로 값을 입력하세요 > ");
-		double width = sc.nextDouble();
+		double width = sc.nextDouble(); // Double.parseDouble(sc.nextLine()); -> 문자열을 double로
 		
 		System.out.print("세로 값을 입력하세요 > ");
 		double height = sc.nextDouble();
 		
 		System.out.printf("면적 : %.2f\n", width * height);
-		System.out.printf("둘레 : %.1f\n", (width + height) * 2);
+		System.out.printf("둘레 : %.1f\n", (width + height) * 2); 
+		// System.out.println("둘레 : " + String.format("%.1f", (width + height) * 2)) --> 같은 결과!
 	}
 
 	/*
@@ -121,9 +127,9 @@ public class VariablePractice {
 		char ch2 = str.charAt(1);
 		char ch3 = str.charAt(len - 1);
 		
-		System.out.println(ch1); // a
-		System.out.println(ch2); // p
-		System.out.println(ch3); // e
+		System.out.println("첫번째 문자 : " + ch1); // a
+		System.out.println("두번째 문자 : " + ch2); // p
+		System.out.println("세번째 문자 : " + ch3); // e
 	}
 
 	/*
@@ -139,8 +145,8 @@ public class VariablePractice {
 		int unicode1 = (int) ch;
 		int unicode2 = (int) ch + 1;
 		
-		System.out.println("unicode : " + unicode1);
-		System.out.println("next unicode : " + unicode2);
+		System.out.println(ch + " unicode : " + unicode1);
+		System.out.println((char)(ch + 1) + " unicode : " + unicode2);
 	}
 	
 	/*
@@ -163,7 +169,7 @@ public class VariablePractice {
 		int math = sc.nextInt();
 		
 		int sum = kor + eng + math;
-		double average = (kor + eng + math) / 3;
+		double average = (double)sum / 3;
 		
 		System.out.printf("총점 : %d\n", sum);
 		System.out.printf("평균 : %.2f\n", average);

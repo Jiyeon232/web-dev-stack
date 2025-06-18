@@ -15,9 +15,9 @@ public class ConditionPractice {
 		//c.method4();
 		//c.method5();
 		//c.method6();
-		c.method7();
-		c.method8();
-		c.method9();
+		//c.method7();
+		//c.method8();
+		//c.method9();
 		c.method10();
 	}
 
@@ -199,8 +199,28 @@ public class ConditionPractice {
 
      */
     public void method7() {
-
-
+    	System.out.print("키 입력 >> ");
+    	double cm = sc.nextDouble();
+    	System.out.print("몸무게 입력 >> ");
+    	double kg = sc.nextDouble();
+    	
+    	double bmi = kg / (cm * cm) * 10000;
+    	String result = " ";
+    	
+		if (bmi >= 30) {
+			result = "고도 비만";
+		} else if (bmi >= 25) {
+			result = "비만";
+		} else if (bmi >= 23) {
+			result = "과체중";
+		} else if (bmi >= 18.5) {
+			result = "정상 체중";
+		} else {
+			result = "저체중";
+		}
+		
+		System.out.println("BMI 지수 : " + bmi);
+		System.out.println(result);
     }
 
     /*
@@ -215,11 +235,42 @@ public class ConditionPractice {
 
      */
     public void method8() {
-
+    	System.out.print("첫번째 숫자 입력 >> ");
+    	int num1 = sc.nextInt();
+    	System.out.print("두번째 숫자 입력 >> ");
+    	int num2 = sc.nextInt();
+    	System.out.print("연산 기호 입력 >> ");
+    	char op = sc.next().charAt(0);
+    	
+		if (num1 > 0 && num2 > 0) {
+			if (op == '+' || op == '-' || op == '*' || op == '/' || op == '%') {
+				switch (op) {
+				case '+':
+					System.out.printf("%d + %d = %d\n", num1, num2, num1 + num2);
+					break;
+				case '-':
+					System.out.printf("%d - %d = %d\n", num1, num2, num1 - num2);
+					break;
+				case '*':
+					System.out.printf("%d * %d = %d\n", num1, num2, num1 * num2);
+					break;
+				case '/':
+					System.out.printf("%d / %d = %d\n", num1, num2, num1 / num2);
+					break;
+				case '%':
+					System.out.printf("%d % %d = %d\n", num1, num2, num1 % num2);
+					break;
+				}
+			} else {
+				System.out.println("잘못 입력하셨습니다. 프로그램을 종료합니다.");
+			}
+		} else {
+			System.out.println("잘못 입력하셨습니다. 프로그램을 종료합니다.");
+		}
     }
 
     /*
-      아래 예시와 같이 메뉴를 출력하고 메뉴 번호를 누르면 “OO메뉴입니다“를, 종료 번호를 누르면 “프로그램이 종료됩니다.”를 출력하세요
+      아래 예시와 같이 메뉴를 출력하고 메뉴 번호를 누르면 “OO메뉴입니다”를, 종료 번호를 누르면 “프로그램이 종료됩니다.”를 출력하세요
 
         1. 입력
         2. 수정
@@ -230,7 +281,30 @@ public class ConditionPractice {
         조회 메뉴입니다.
      */
     public void method9() {
+    	System.out.println("1. 입력" + "\n" + "2. 수정" + "\n" + "3. 조회" + "\n" + "4. 삭제" + "\n" + "9. 종료");
+    	System.out.print("메뉴 번호를 입력하세요 : ");
+    	int number = Integer.parseInt(sc.nextLine());
+    	String menu = " ";
     	
+    	switch(number) {
+    	case 1 :
+    		menu = "입력 메뉴입니다.";
+    		break;
+    	case 2 : 
+    		menu = "수정 메뉴입니다.";
+    		break;
+    	case 3 :
+    		menu = "조회 메뉴입니다.";
+    		break;
+    	case 4 :
+    		menu = "삭제 메뉴입니다.";
+    		break;
+    	case 9 :
+    		menu = "프로그램이 종료됩니다.";
+    		break;
+    	}
+    	
+    	System.out.println(menu);
     }
 
     /*
@@ -279,7 +353,24 @@ public class ConditionPractice {
 
      */
     public void method10() {
-    	
+        System.out.print("중간 고사 점수 : ");
+        int score1 = sc.nextInt();
+        System.out.print("기말 고사 점수 : ");
+        int score2 = sc.nextInt();
+        System.out.print("과제 점수 : ");
+        int score3 = sc.nextInt();
+        System.out.print("출석 횟수 : ");
+        int attend = sc.nextInt();
+        
+        System.out.println("===========결과==========");
+        System.out.println("중간 고사 점수(20) : " + score1);
+        System.out.println("기말 고사 점수(30) : " + score2);
+        System.out.println("과제 고사 점수(30) : " + score3);
+        System.out.println("출석 점수(20) : " + attend);
+        System.out.println("총점 : ");
+        System.out.println("PASS");
+        System.out.printf("FAIL [출석 횟수 부족] (%d/20)\n", attend);
+        System.out.printf("FAIL [점수 미달] (총점 %f)\n", "총점");
     }
     
 }
