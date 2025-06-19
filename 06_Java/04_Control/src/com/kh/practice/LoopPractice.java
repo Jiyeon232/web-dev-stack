@@ -119,11 +119,49 @@ class LoopPractice {
 
      */
     public void method5() {
-    	for (int i = 1; i <= 10; i++) {
-    		System.out.println(i + "번째");
+    	int[] arr = new int[10];
+    	int count1 = 0;
+    	int count2 = 0;
+    	int count3 = 0;
+    	int count4 = 0;
+    	int count5 = 0;
+    	int count6 = 0;
+    	
+    	for (int i = 0; i < 10; i++) {
+    		//System.out.println((i+1) + "번째");
     		int random = (int) (Math.random() * 6 + 1);
-    		System.out.println("주사위 눈 : " + random);
+    		//System.out.println("주사위 눈 : " + random);
+    		arr[i] = random;
+    		
+        	switch(arr[i]) {
+        	case 1:
+        		count1++;
+        		break;
+        	case 2:
+        		count2++;
+        		break;
+        	case 3:
+        		count3++;
+        		break;
+        	case 4:
+        		count4++;
+        		break;
+        	case 5:
+        		count5++;
+        		break;
+        	case 6:
+        		count6++;
+        		break;
+        	}
     	}
+    	//System.out.println(Arrays.toString(arr));
+    	
+    	System.out.println("1 : " + count1);
+    	System.out.println("2 : " + count2);
+    	System.out.println("3 : " + count3);
+    	System.out.println("4 : " + count4);
+    	System.out.println("5 : " + count5);
+    	System.out.println("6 : " + count6);
     }
 
     /*
@@ -151,13 +189,53 @@ class LoopPractice {
     public void method6() {
     	System.out.print("당신의 이름을 입력해주세요 : ");
     	String name = sc.nextLine();
-    	System.out.print("가위바위보 : ");
-    	String userInput = sc.nextLine();
     	
-    	
-    	System.out.println("비겼습니다.");
-    	System.out.println("졌습니다 ㅠㅠ");
-    	System.out.println("이겼습니다 !");
-    }
+    	int count1 = 0;
+		int count2 = 0;
+
+		while (true) {
+			System.out.print("가위바위보 : ");
+			String userInput = sc.nextLine();
+
+			String[] computer = { "가위", "바위", "보" };
+			String comValue = "";
+			
+			for (int i = 0; i < computer.length; i++) {
+				int random = (int) (Math.random() * 3 + 1);
+
+				switch (random) {
+				case 1:
+					comValue = "가위";
+					break;
+				case 2:
+					comValue = "바위";
+					break;
+				case 3:
+					comValue = "보";
+					break;
+				}
+			}
+
+			System.out.println("컴퓨터 : " + comValue);
+			System.out.println(name + " : " + userInput);
+
+			if (userInput.equals(comValue)) {
+				count1++;
+				System.out.println("비겼습니다.\n");
+			} else {
+				if (userInput.equals("가위") && comValue.equals("보") 
+						|| userInput.equals("바위") && comValue.equals("가위")
+						|| userInput.equals("보") && comValue.equals("바위")) {
+					System.out.println("이겼습니다 !");
+					System.out.printf("비긴 횟수 : %d, 진 횟수 : %d, 이긴 횟수 : 1", count1, count2);
+					break;
+				} else {
+					count2++;
+					System.out.println("졌습니다 ㅠㅠ\n");
+				}
+			}
+		}
+
+	}
 
 }
