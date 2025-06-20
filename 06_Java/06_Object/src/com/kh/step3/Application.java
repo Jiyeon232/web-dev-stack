@@ -29,5 +29,8 @@ public class Application {
 		System.out.println("곱하기 : " + c.multiply(20, 35));
 		
 		System.out.println("나누기 : " + Calculator.divide(45, 4)); // static 메서드 호출
+		System.out.println(c.factorial(10));
+		System.out.println(c.factorial2(5));
+		
 	}
 }
