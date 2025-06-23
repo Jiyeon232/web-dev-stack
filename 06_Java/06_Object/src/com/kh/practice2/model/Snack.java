@@ -60,8 +60,7 @@ public class Snack {
 
 	@Override
 	public String toString() {
-		return "Snack [kind=" + kind + ", name=" + name + ", flavor=" + flavor + ", numOf=" + numOf + ", price=" + price
-				+ "]";
+		return kind + "(" + name + " - " + flavor + ") " + numOf + "개 " + price + "원";
 	}
 	
 }
