@@ -1,6 +1,8 @@
 package com.kh.list;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import com.kh.list.model.Person;
 
@@ -76,6 +78,58 @@ public class A_ArrayList {
 		// 5. get : 해당 인덱스의 객체 가져오기
 		System.out.println(list.get(0));
 		
+		// 6. subList : 기존 리스트에서 원하는 만큼 추출해서 새로운 리스트 반환
+		list.add(new Person("전현무", "삼성동", 47));
+		list.add(new Person("기안84", "과천시", 40));
+		
+		List<Person> subList = list.subList(0, 2);
+		System.out.println(subList);
+		
+		// 7. addAll : 컬렉션을 통째로 추가
+		list.addAll(subList);
+		
+		// 8. isEmpty : 컬렉션이 비어있는지
+		System.out.println("리스트가 비어있는지? " + list.isEmpty());
+		
+		// 리스트에 저장된 사람들의 평균 연령 출력
+		int sum = 0;
+		for (int i = 0; i < list.size(); i++) {
+			//System.out.println(list.get(i));
+			Person person = list.get(i);
+			//System.out.println(person.getAge());
+			sum += person.getAge();
+		}
+		System.out.println(sum / list.size());
+		
+		// 저장된 사람들의 이름만 출력
+		for (Person person : list) {
+			//System.out.println(person);
+			System.out.println(person.getName());
+		}
+		
+		// 나이 순서대로 정렬 -> 이름순으로 정렬
+		Collections.sort(list);
+		System.out.println(list);
+		
+		// 9. clear : 싹 비우기
+		list.clear();
+		
+		System.out.println(list);
+	}
+	
+	public void method3() {
+		List<String> list = new ArrayList<>();
+		list.add("banana");
+		list.add("orange");
+		list.add("apple");
+		list.add("mango");
+		list.add("grape");
+		
+		// 10. 오름차순 정렬 : Comparable 인터페이스를 구현하고 있는 요소를 가지고 비교값들 반환하여 정렬
+		Collections.sort(list);
+		// 11. 내림차순 정렬 : sort 메서드로 오름차순 정렬 후 reverse로 정렬
+		Collections.reverse(list); // 반대로 정렬!
+		
 		System.out.println(list);
 	}
 	
@@ -83,6 +137,7 @@ public class A_ArrayList {
 		A_ArrayList a = new A_ArrayList();
 		//a.method1();
 		a.method2();
+		//a.method3();
 	}
 
 }
