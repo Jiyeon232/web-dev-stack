@@ -3,17 +3,20 @@ package com.kh.practice2;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.kh.practice2.controller.BookController;
+import com.kh.practice2.controller.MemberController;
 import com.kh.practice2.model.Book;
 import com.kh.practice2.model.Member;
 
-public class Application {
+public class Application2 {
 	
 	Scanner sc = new Scanner(System.in);
-	Member member = new Member();
+	MemberController mc = new MemberController();
+	BookController bc = new BookController();
 
 	// 대여 가능한 책 목록
 	ArrayList<Book> books = new ArrayList<>();
-	
+
 	{
 		books.add(new Book("디스 이즈 이탈리아", false, 0));
 		books.add(new Book("리얼 런던", true, 0));
@@ -23,11 +26,8 @@ public class Application {
 		books.add(new Book("귀멸의 칼날 23", false, 19));
 		books.add(new Book("진격의 거인 Before the fall 16", false, 19));
 	}
-	
+
 	public static void main(String[] args) {
-		
-		Application app = new Application();
-		app.login();
 
 		/*
 		 * --> 너무 어렵다면 멤버 1명! 대여하기부터!
@@ -53,30 +53,34 @@ public class Application {
 		 *  4. 프로그램 종료
 		 * */
 		
+		Application2 app = new Application2();
+		
 		try {
 			app.menu();
 		} catch (Exception e) {
 			System.out.println("잘못 입력하셨습니다! 다시 입력해주세요ㅠㅠ");
 			app.menu();
 		}
+		
 	}
-	
-	public void login() {
+
+	public void menu() {
 		try {
 			System.out.print("이름 : ");
-			member.setName(sc.nextLine());
+			String name = sc.nextLine();
 			System.out.print("나이 : ");
-			member.setAge(Integer.parseInt(sc.nextLine()));
-		} catch(Exception e) {
-			System.out.println("잘못 입력했습니다. 다시 입력해주세요");
-			login();
+			int age = Integer.parseInt(sc.nextLine());
+			boolean result = mc.registerAndLogin(name, age);
+			if (!result) {
+				System.out.println("이미 존재하는 이름입니다. 다시 입력해주실래요?");
+				menu();
+			}
+			
+		} catch (Exception e) {
+			System.out.println("잘못 입력하셨습니다! 다시 입력해주세요ㅠㅠ");
+			menu();
 		}
 		
-		System.out.println(member.getName() + "님이 로그인되었습니다");
-		menu();
-	}
-	
-	public void menu() {
 		boolean check = true;
 		while (check) {
 			System.out.println("==== 메뉴 ====");
@@ -86,52 +90,50 @@ public class Application {
 			System.out.println("4. 프로그램 종료");
 
 			System.out.print("메뉴 번호: ");
-
-			try {
-				int menu = Integer.parseInt(sc.nextLine());
-
-				switch (menu) {
-				case 1:
-					System.out.println(member);
-					break;
-				case 2:
-					rent();
-					break;
-				case 3:
-					System.out.println("로그아웃 되었습니다");
-					member = null;
-					login();
-					break;
-				case 4:
-					System.out.println("프로그램 종료");
-					check = false;
-					break;
-				}
-
-			} catch (Exception e) {
-				System.out.println("잘못 입력했습니다. 다시 입력해주세요");
+			int select = Integer.parseInt(sc.nextLine());
+			switch (select) {
+			case 1:
+				System.out.println(mc.getMember());
+				break;
+			case 2:
+				rent();
+				break;
+			case 3:
+				mc.logout();
 				menu();
+				break;
+			case 4:
+				check = false;
+				break;
 			}
+
 		}
 		
 	}
-
+	
+	// 2. 도서 대여하기
 	public void rent() {
-		// 2. 도서 대여하기
-		int i = 0;
-		for (Book book : books) {
-			i++;
-			System.out.println(i + "번 도서 : " + book);
+		// 향상된 for문 : 값만 가지고 올 때 간단하게!
+		// 인덱스까지 필요하시다면 일반 for문!
+		for (int i = 0; i < books.size(); i++) {
+			System.out.println(i + "번째 " + books.get(i));
 		}
 		
-		System.out.print("대여할 도서 번호 선택 : ");
-		int bookNum = Integer.parseInt(sc.nextLine());
-
+		System.out.print("대여할 책 번호 선택 : ");
+		int select = Integer.parseInt(sc.nextLine());
+		
 		// 내가 대여할 책 Book 객체 하나
-		// System.out.println(books.get(bookNum));
+		//System.out.println(books.get(select));
 		// Member 객체에 bookList 여기에 추가
-		// System.out.println(member.getBookList().add(books.get(bookNum)));
-		member.getBookList().add(books.get(bookNum - 1));
+		//System.out.println(member.getBookList().add(books.get(select)));
+		
+		Object result = bc.rentBook(books.get(select), mc.getMember());
+		if (result instanceof Member) {
+			System.out.println("성공적으로 대여되었습니다.");
+			mc.setMember((Member) result);
+		} else {
+			System.out.println(result);
+		}
 	}
-
+	
 }
