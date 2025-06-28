@@ -14,19 +14,19 @@ public class MusicController {
 		music.setSong(song);
 		music.setArtist(artist);
 		
-		Music m = new Music();
-		list.add(music);
-		this.music = m;		
-		
-		// 조건 수정!
 		for (int i = 0; i < list.size(); i++) {
-			boolean check = list.get(i).getSong().equals(song) && list.get(i).getArtist().equals(artist);
-			if (check) {
+			if (list.get(i).getSong().equals(song) && list.get(i).getArtist().equals(artist)) {
 				System.out.println("추가 실패");
-			} else {
-				System.out.println("추가 성공");
+				return;
 			}
 		}
+		
+		System.out.println("추가 성공");
+		
+		Music m = new Music();
+		list.add(music);
+		this.music = m;	
+		
 	}
 	
 	//2. 전체 곡 목록 출력
