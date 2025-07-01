@@ -18,7 +18,6 @@ import java.util.stream.Stream;
  * * 스트림의 종류
  * - java.util.stream 패키지에 존재하고 BaseStream 인터페이스를 부모로 갖고 자식 인터페이스들이 상속 관계를 이루고 있다
  * 
- * 
  * * Stream API
  * - 스트림은 자바 8부터 추가된 기능으로 컬렉션(배열)의 저장 요소들을 하나씩 참조해서 람다식으로 처리할 수 있도록 해주는 반복자
  * - 중간 처리(intermediate), 최종 처리(terminal) 작업을 수행

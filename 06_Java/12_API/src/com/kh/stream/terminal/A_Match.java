@@ -2,8 +2,6 @@ package com.kh.stream.terminal;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
-
 import com.kh.stream.model.Student;
 
 /*
@@ -29,7 +27,7 @@ public class A_Match {
 		List<Student> students = Arrays.asList(
 				new Student("오재덕", 20, "남자", 80, 90),
 				new Student("이승민", 19, "남자", 75, 80),
-				new Student("이환희", 19, "여자", 50, 100),
+				new Student("이환희", 18, "여자", 50, 100),
 				new Student("박기민", 17, "남자", 70, 90),
 				new Student("조규상", 18, "남자", 75, 85),
 				new Student("이상엽", 20, "남자", 100, 60),
@@ -42,15 +40,9 @@ public class A_Match {
 		System.out.println("나이가 18살 이하인 학생들이 모두 남자인지? " + result);
 		
 		// 남학생들 중에 평균이 90점 이상이 한 명이라도 존재하는지 확인	
-		double average = students.stream()
-			 .mapToInt(student -> (student.getMath() + student.getEnglish()) / 2)
-			 .peek(System.out::println)
-			 .average().getAsDouble();
-		System.out.println(average);
-		
 		result = students.stream()
 			.filter(student -> student.getGender() == "남자")
-			.anyMatch(student -> average >= 90);
+			.anyMatch(student -> (student.getMath() + student.getEnglish()) / 2 >= 90);
 		System.out.println("남학생들 중에 평균이 90점 이상이 한 명이라도 존재하는지 " + result);
 	}
 

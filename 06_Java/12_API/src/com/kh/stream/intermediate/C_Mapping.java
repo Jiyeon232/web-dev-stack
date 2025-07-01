@@ -14,7 +14,7 @@ public class C_Mapping {
 		List<Student> students = Arrays.asList(
 				new Student("오재덕", 20, "남자", 80, 90),
 				new Student("이승민", 19, "남자", 75, 80),
-				new Student("이환희", 19, "여자", 50, 100),
+				new Student("이환희", 18, "여자", 50, 100),
 				new Student("박기민", 17, "남자", 70, 90),
 				new Student("조규상", 18, "남자", 75, 85),
 				new Student("이상엽", 20, "남자", 100, 60),
