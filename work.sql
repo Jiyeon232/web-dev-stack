@@ -1,3 +1,4 @@
+DROP TABLE member;
 CREATE TABLE member(
 	id VARCHAR(100) PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -29,7 +30,46 @@ CREATE TABLE person(
 );
 SELECT * FROM person;
 
+SELECT * FROM person WHERE name = 'aaa' AND age = 123 AND addr = 'aaa';
 INSERT INTO person(name, age, addr) VALUES('이름', 10, '서울');
 SELECT * FROM person WHERE id = 1;
 UPDATE person SET addr = '경기도' WHERE id = 1;
 DELETE FROM person WHERE id = 1;
+
+-- -----------------------------------
+DROP TABLE rent;
+DROP TABLE book;
+DROP TABLE member;
+
+CREATE TABLE book(
+	book_no INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    author VARCHAR(50) NOT NULL,
+    access_age INT DEFAULT 0
+);
+
+CREATE TABLE member(
+	id VARCHAR(100) PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    pwd VARCHAR(200) NOT NULL,
+    age INT 
+);
+
+CREATE TABLE rent(
+	rent_no INT PRIMARY KEY AUTO_INCREMENT,
+    id VARCHAR(100),
+    book_no INT,
+    rent_date DATE DEFAULT (CURRENT_DATE)
+);
+-- foreign key
+ALTER TABLE rent ADD
+FOREIGN KEY (book_no) REFERENCES book(book_no);
+ALTER TABLE rent ADD
+FOREIGN KEY (id) REFERENCES member(id);
+
+SELECT * FROM book;
+SELECT * FROM member;
+SELECT * FROM rent;
+
+INSERT INTO book(title, author, access_age) VALUES('책 제목', '저자', 1);
+SELECT * FROM book WHERE title = '책 제목' AND author = '저자' AND access_age = 1;
