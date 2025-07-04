@@ -15,6 +15,6 @@ public class Rent { // --> rent
 	private LocalDate rentDate; // rent_date
 	
 	// ---------------------
-	private Member client;
+	//private Member member;
 	private Book book;
 }

@@ -41,6 +41,10 @@ DROP TABLE rent;
 DROP TABLE book;
 DROP TABLE member;
 
+DELETE FROM book;
+DELETE FROM member;
+DELETE FROM rent;
+
 CREATE TABLE book(
 	book_no INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
@@ -52,7 +56,7 @@ CREATE TABLE member(
 	id VARCHAR(100) PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     pwd VARCHAR(200) NOT NULL,
-    age INT 
+    age INT
 );
 
 CREATE TABLE rent(
@@ -63,13 +67,24 @@ CREATE TABLE rent(
 );
 -- foreign key
 ALTER TABLE rent ADD
-FOREIGN KEY (book_no) REFERENCES book(book_no);
+FOREIGN KEY (book_no) REFERENCES book(book_no) ON DELETE CASCADE;
 ALTER TABLE rent ADD
-FOREIGN KEY (id) REFERENCES member(id);
+FOREIGN KEY (id) REFERENCES member(id) ON DELETE CASCADE;
 
 SELECT * FROM book;
 SELECT * FROM member;
 SELECT * FROM rent;
 
+-- 내가 대여한 책 조회 --> rent, book 테이블 조인!
+SELECT * FROM rent JOIN book USING(book_no) WHERE id = 'aaa';
+
+INSERT INTO member VALUES('admin', '관리자', '1234', 100); -- 관리자 계정
+INSERT INTO member VALUES('aaa', '사용자', 'bbb', 10); -- 사용자
 INSERT INTO book(title, author, access_age) VALUES('책 제목', '저자', 1);
+INSERT INTO rent(id, book_no) VALUES('aaa', 1);
+SELECT id, pwd FROM member WHERE id = 'aaa' AND pwd = 'bbb';
 SELECT * FROM book WHERE title = '책 제목' AND author = '저자' AND access_age = 1;
+SELECT book_no FROM book WHERE title = 'aaa';
+DELETE FROM member WHERE id = 'aaa';
+DELETE FROM book WHERE book_no = 1;
+DELETE FROM rent WHERE rent_no = 2;
