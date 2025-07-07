@@ -33,7 +33,7 @@ public class MemberController {
 	// 6. 회원탈퇴
 	public boolean delete(String id) {
 		// 회원탈퇴시 대여중인 책을 모두 기록 삭제
-		// SQL에서 FOREIGN KEY에 ON DELETE CASCADE 걸기!
+		// MYSQL에서 FOREIGN KEY에 ON DELETE CASCADE 걸기!
 		try {
 			dao.delete(id);
 			return true;

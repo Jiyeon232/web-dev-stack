@@ -67,9 +67,9 @@ CREATE TABLE rent(
 );
 -- foreign key
 ALTER TABLE rent ADD
-FOREIGN KEY (book_no) REFERENCES book(book_no) ON DELETE CASCADE;
-ALTER TABLE rent ADD
 FOREIGN KEY (id) REFERENCES member(id) ON DELETE CASCADE;
+ALTER TABLE rent ADD
+FOREIGN KEY (book_no) REFERENCES book(book_no);
 
 SELECT * FROM book;
 SELECT * FROM member;
