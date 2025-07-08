@@ -5,21 +5,19 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import config.ServerInfo;
 import vo.Member;
 
 public class MemberDAO {
-	
+
 	public MemberDAO() {
 		
 		try {
 			// 1. 드라이버 로딩
 			Class.forName(ServerInfo.DRIVER);
-
-		} catch (Exception e) {
+			
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -39,48 +37,41 @@ public class MemberDAO {
 		ps.setString(2, member.getName());
 		ps.setString(3, member.getPwd());
 		ps.setInt(4, member.getAge());
-
+		
 		ps.executeUpdate();
 	}
 	
-	// 전체 회원 보기
-	public List<Member> viewAll() throws SQLException {
+	// 로그인
+	public void login(String id, String pwd) throws SQLException {
 		Connection connect = connect();
 		
-		String query = "SELECT * FROM member";
-		PreparedStatement ps = connect.prepareStatement(query);
-		
-		ResultSet rs = ps.executeQuery();
-		
-		Member member = new Member();
-		List<Member> list = new ArrayList<>();
-		
-		while (rs.next()) {
-			member.setId(rs.getString("id"));
-			member.setName(rs.getString("name"));
-			member.setPwd(rs.getString("pwd"));
-			member.setAge(rs.getInt("age"));
-			
-			list.add(member);
-		}
-		return list;
-	}
-	
-	// 회원 아이디로 정보 조회
-	public Member search(String id) throws SQLException {
-		Connection connect = connect();
-		
-		String query = "SELECT * FROM member WHERE id = ?";
+		String query = "SELECT * FROM member WHERE id = ? AND pwd = ?";
 		PreparedStatement ps = connect.prepareStatement(query);
 		ps.setString(1, id);
+		ps.setString(2, pwd);
 		
 		ResultSet rs = ps.executeQuery();
 		
-		Member member = null;
 		if (rs.next()) {
-			member = new Member(rs.getString("id"), rs.getString("name"), rs.getString("pwd"), rs.getInt("age"));
+			if (rs.getString("id").equals(id) && rs.getString("pwd").equals(pwd)) {
+				// 로그인 성공
+			}
 		}
-		return member;
+	}
+	
+	// 회원 검색
+	public void search() {
+		
+	}
+	
+	// 전체 회원 보기
+	public void allMember() {
+		
+	}
+	
+	// 로그아웃
+	public void logout() {
+		
 	}
 	
 }
