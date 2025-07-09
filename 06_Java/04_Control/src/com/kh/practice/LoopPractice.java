@@ -350,7 +350,7 @@ class LoopPractice {
     }
     
     public void method7() {
-    	// 가위바위보 추가 -> NVC 방식
+    	// 가위바위보 추가 -> MVC 방식
     	RockPaperScissorView view = new RockPaperScissorView();
     	view.gameStart();
     }

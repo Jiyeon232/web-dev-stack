@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<% Member member = (Member) request.getAttribute("member"); 
+	<% Member member = (Member) request.getAttribute("member");
 	   String id = request.getParameter("id");
 	%>
 	<% if (member != null) { %>
