@@ -88,5 +88,3 @@ SELECT book_no FROM book WHERE title = 'aaa';
 DELETE FROM member WHERE id = 'aaa';
 DELETE FROM book WHERE book_no = 1;
 DELETE FROM rent WHERE rent_no = 2;
-
-SELECT * FROM work.member;

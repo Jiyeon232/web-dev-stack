@@ -20,10 +20,8 @@
 			<%-- 로그인 된 경우 --%>
 			<c:otherwise>
 				<li><a href="/views/search.jsp">회원 검색</a></li>
-				<li><a href="/front?command=allMember">전체 회원 보기</a></li>
-				<li><a href="/front?command=logout">로그아웃</a></li>
-				<%-- url로 보내는 방식(get 방식으로 보내는 것과 같음!)
-				  -> ?key=value&key=value&key=value ... --%>
+				<li><a href="/allMember.do">전체 회원 보기</a></li>
+				<li><a href="/logout.do">로그아웃</a></li>
 			</c:otherwise>
 		</c:choose>
 	</ul>
