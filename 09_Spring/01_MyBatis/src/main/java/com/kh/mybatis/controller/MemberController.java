@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.mybatis.model.dto.SearchDTO;
 import com.kh.mybatis.model.vo.Member;
@@ -87,6 +88,14 @@ public class MemberController {
 	public String search(SearchDTO dto, Model model) {
 		model.addAttribute("list", service.search(dto));
 		return "index";
+	}
+	
+	@PostMapping("/delete")
+	public String delete(@RequestParam(name="idList", required=false) List<String> idList) {
+		// required 기본값 : true, null일 때 에러! -> false 처리하기
+		//System.out.println(idList);
+		if (idList != null) service.selectDelete(idList);
+		return "redirect:/";
 	}
 	
 }

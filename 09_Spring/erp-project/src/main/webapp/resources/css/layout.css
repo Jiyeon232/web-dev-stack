@@ -6,7 +6,7 @@
   position: fixed;
   background-color: navy;
   height: 100%;
-  width: 250px;
+  width: var(--side-width);
   color: white;
   overflow-y: auto;
 }
@@ -15,10 +15,68 @@
 }
 .main header {
   position: fixed;
-  background: beige;
+  border-bottom: 1px solid grey;
   height: var(--header-height);
   width: 100%;
 }
 .main section {
   padding-top: var(--header-height);
+}
+
+/* 사이드 바 */
+.side h1 {
+  font-size: 22px;
+  margin: 20px 16px;
+}
+
+.side h1 a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.side h1 a:hover {
+  color: #ccc;
+}
+/* 메뉴 그룹 전체 간격 */
+.menu-group {
+  margin-bottom: 12px;
+}
+
+/* 접이식 상단 제목 */
+.menu-title {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background 0.3s;
+}
+.menu-title:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 서브메뉴 숨김/펼침 */
+.submenu {
+  display: none;
+  padding-left: 20px;
+  padding-top: 5px;
+}
+.submenu.show {
+  display: block;
+}
+
+/* 서브메뉴 항목 스타일 */
+.submenu a {
+  display: block;
+  padding: 6px 12px;
+  color: #ddd;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.submenu a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
 }
