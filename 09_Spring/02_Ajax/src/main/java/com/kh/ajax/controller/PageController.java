@@ -16,4 +16,14 @@ public class PageController {
 		return "02_encoding";
 	}
 	
+	@GetMapping("/ajax3")
+	public String ajax3() {
+		return "03_register";
+	}
+	
+	@GetMapping("/ajax4")
+	public String ajax4() {
+		return "04_serialize";
+	}
+	
 }
