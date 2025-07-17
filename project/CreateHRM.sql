@@ -19,8 +19,6 @@ CREATE TABLE employee_info (
     addr VARCHAR(200),                                -- 주소
     phone VARCHAR(20),                                -- 연락처
     email VARCHAR(100)                             	  -- 이메일
-
-    
 );
 
 -- 직급 테이블

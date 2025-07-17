@@ -64,7 +64,7 @@ FROM EMPLOYEE
 SELECT * FROM EMP_DML;
 
 /*
-   INDSERT ALL
+   INSERT ALL
    - 두 개 이상의 테이블에 각각 INSERT 하는데 동일한 서브쿼리가 사용되는 경우
    - INSERT ALL을 이용해 여러 테이블에 한 번에 데이터 삽입이 가능
    

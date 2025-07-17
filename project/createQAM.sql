@@ -14,7 +14,7 @@ product_code INT AUTO_INCREMENT PRIMARY KEY,
 product_color VARCHAR(10) NOT NULL, -- 제품 색깔(제품명에 들어가야할지?)
 product_name VARCHAR(20) NOT NULL, -- 제품명
 product_price INT NOT NULL, -- 제품 가격
-product_cost INT NOT NULL,
+product_cost INT NOT NULL, -- 단가
 product_category VARCHAR(20) NOT NULL -- 카테고리
 -- 생산 브랜드(거래사 테이블과 연관?)
 
