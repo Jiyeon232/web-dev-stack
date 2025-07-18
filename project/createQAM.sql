@@ -1,16 +1,10 @@
-DROP TABLE product;
-DROP TABLE product_name;
-DROP TABLE qc;
-DROP TABLE sale;
-DROP TABLE defective;
 
 
 -- 제품 테이블
 CREATE TABLE product( 
-product_no INT AUTO_INCREMENT PRIMARY KEY,
+product_no INT AUTO_INCREMENT PRIMARY KEY, 
 production_date DATE NOT NULL, -- 생산일
--- sale_date DATE, -- 판매일
-product_code INT -- 제품명 외래키
+product_code INT NOT NULL -- 제품명 외래키
 );
 
 -- 제품명 테이블(제품에 대한 모든 정보)
@@ -33,8 +27,6 @@ CREATE TABLE qc (
     qc_date DATE DEFAULT NULL,         -- 품질 검사 날짜
     emp_no INT DEFAULT NULL,           -- 직원 외래키 (검사자)
     product_no INT NOT NULL -- 제품 외래키
---    quantity INT DEFAULT 1,  -- 검사 수량
---    result VARCHAR(10) DEFAULT NULL CHECK (result IN ('합격', '불합격')) -- 최종 판정
 );
 
 -- 판매 테이블
@@ -50,13 +42,3 @@ defective_no INT AUTO_INCREMENT PRIMARY KEY,
 product_no INT NOT NULL -- 상품 외래키
 );
 
-ALTER TABLE product ADD
-FOREIGN KEY (product_code) REFERENCES product_name(product_code);
-ALTER TABLE qc ADD
-FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
-ALTER TABLE qc ADD
-FOREIGN KEY (product_no) REFERENCES product(product_no);
-ALTER TABLE sale ADD
-FOREIGN KEY (product_no) REFERENCES product(product_no);
-ALTER TABLE defective ADD
-FOREIGN KEY (product_no) REFERENCES product(product_no);

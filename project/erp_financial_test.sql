@@ -21,7 +21,7 @@ CREATE TABLE salary(
     deduction INT, -- 공제 금액
     tax INT, -- 세금
     
-    emp_no INT, -- 사용자 번호
+    emp_no INT, -- 사원 번호
     bonus_payment_no INT -- 보너스 수당 번호
 );
 
@@ -54,23 +54,22 @@ CREATE TABLE transaction(
 -- 상품/자재 , 매입일, 단가/수랑, 부가세, 공급업체, 부서
 CREATE TABLE purchase(
 	purchase_no INT AUTO_INCREMENT PRIMARY KEY, -- 매입 번호
-	product_code INT NOT NULL, -- 상품명 외래키
     -- vendor VARCHAR(100), -- 공급업체
     unit_price INT, -- 단가
     quantity INT, -- 수량
     var_amount INT, -- 부가세 총액
     total_amount INT, -- 총액 unit_price * quantity 
-    purchase_date DATE -- 매입일
+    purchase_date DATE, -- 매입일
+    product_code INT NOT NULL -- 상품 번호 외래키
 );
 
 CREATE TABLE sale_manage(
 	sm_no INT AUTO_INCREMENT PRIMARY KEY, -- 매출 번호
     sale_date DATE, -- 매출 발생일자
-    product_name VARCHAR(100), -- 품목명
-    category VARCHAR(50), -- 카테고리
     quantity INT, -- 수량
     var_amount INT, -- 부가세
-    total_amount INT -- 총액
+    total_amount INT, -- 총액
+    product_code INT NOT NULL -- 품목 번호 외래키
 );
 
 -- salary → employee_info(emp_no)
@@ -91,6 +90,8 @@ ADD FOREIGN KEY (dept_no) REFERENCES department(dept_no);
 -- purchase → product_name(product_code)
 ALTER TABLE purchase
 ADD FOREIGN KEY (product_code) REFERENCES product_name(product_code);
+ALTER TABLE sale_manage
+ADD FOREIGN KEY (product_code) REFERENCES product_name(product_code);
 
 
 -- 예산 편성(관리자)
@@ -101,19 +102,21 @@ SELECT dept_name, period_type, annual_budget, plan FROM budget JOIN department U
 -- 부서별 예산 선택 조회
 SELECT dept_name, period_type, annual_budget, plan FROM budget JOIN department USING(dept_no) WHERE dept_name = '마케팅팀';
 -- 매출 등록
--- INSERT INTO sale_manage(sale_date, product_name, category, quantity, var_amount, total_amount) 
--- VALUES(#{saleDate}, #{productName}, #{category}, #{quantity}, #{varAmount}, #{totalAmount});
+-- INSERT INTO sale_manage(sale_date, quantity, var_amount, total_amount, product_code)
+-- VALUES(#{saleDate}, #{quantity}, #{varAmount}, #{totalAmount}, #{product_code});
 -- 전체 매출 내역 조회
 SELECT * FROM sale_manage;
 -- 매출 내역 선택 조회 (품목별, 카테고리별, 기간별)
-SELECT * FROM sale_manage WHERE product_name = '티셔츠';
-SELECT * FROM sale_manage WHERE category = '상의';
+SELECT * FROM sale_manage JOIN product_name USING(product_code) WHERE product_name = '티셔츠';
+SELECT * FROM sale_manage JOIN product_name USING(product_code) WHERE category = '상의';
 SELECT * FROM sale_manage WHERE sale_date LIKE '%2025-07%';
 -- 부서별 지출 내역 조회
 SELECT * FROM transaction JOIN department USING(dept_no) WHERE dept_name = '마케팅팀';
 -- 카테고리별 지출 내역 조회
 SELECT * FROM transaction WHERE category = '상의';
--- 월별 매입 조회
+-- 전체 매입 내역 조회
+SELECT * FROM purchase;
+-- 월별 매입 내역 조회
 SELECT * FROM purchase WHERE purchase_date LIKE '%2025-07%';
 -- 급여 자동 계산/조회
 SELECT emp_name, (base_salary+bonus+payment-deduction-tax) FROM salary 
