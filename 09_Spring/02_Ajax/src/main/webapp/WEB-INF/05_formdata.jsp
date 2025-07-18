@@ -10,20 +10,27 @@
 </head>
 <body>
 	<h1>회원가입</h1>
-	<form id="frm">
-		아이디 : <input type="text" name="id" id="id"><br>
-		비밀번호 : <input type="password" name="pwd" id="pwd"><br>
-		이름 : <input type="text" name="name" id="name"><br>
-		나이 : <input type="text" name="age"><br>
-		<input type="button" value="회원가입" id="btn">
-	</form>
+	<div>
+		아이디 : <input type="text" id="id"><br>
+		비밀번호 : <input type="password" id="pwd"><br>
+		이름 : <input type="text" id="name"><br>
+		나이 : <input type="text" id="age"><br>
+		<button id="btn">회원가입</button>
+	</div>
 	<div id="result"></div>
 	<script>
 		$("#btn").click(() => {
+			const formData = new FormData();
+			formData.append("id", $('#id').val());
+			formData.append("pwd", $('#pwd').val());
+			formData.append("name", $('#name').val());
+			formData.append("age", $('#age').val());
 			$.ajax({
 				type: "post",
-				url: "/signup",
-				data: $("#frm").serialize(),
+				url: "/register",
+				data: formData,
+				processData: false,
+				contentType: false,
 				success: function(response) {
 					console.log(response.name);
 					$("#result").text(response.name + "님이 회원가입 하셨습니다!");

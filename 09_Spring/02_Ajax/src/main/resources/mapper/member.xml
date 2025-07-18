@@ -7,4 +7,9 @@
 	<select id="idBoolCheck" parameterType="String" resultType="Boolean">
 		SELECT EXISTS(SELECT * FROM member WHERE id = #{id})
 	</select>
+	
+	<insert id="register" parameterType="Member">
+		INSERT INTO member
+		VALUES(#{id}, #{name}, #{pwd}, #{age})
+	</insert>
 </mapper>

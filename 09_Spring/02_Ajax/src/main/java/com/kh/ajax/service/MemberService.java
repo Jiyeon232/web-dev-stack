@@ -22,5 +22,10 @@ public class MemberService implements MemberMapper {
 	public boolean idBoolCheck(String id) {
 		return mapper.idBoolCheck(id);
 	}
+
+	@Override
+	public void register(Member vo) {
+		mapper.register(vo);
+	}
 	
 }
