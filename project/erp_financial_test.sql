@@ -98,7 +98,7 @@ ADD FOREIGN KEY (product_code) REFERENCES product_name(product_code);
 -- INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
 -- VALUES(#{periodType}, #{periodValue}, #{annualBudget}, #{plan}, #{createdAt}, #{deptNo});
 -- 예산 전체 조회
-SELECT dept_name, period_type, annual_budget, plan FROM budget JOIN department USING(department);
+SELECT dept_name, period_type, annual_budget, plan FROM budget JOIN department USING(dept_no);
 -- 부서별 예산 선택 조회
 SELECT dept_name, period_type, annual_budget, plan FROM budget JOIN department USING(dept_no) WHERE dept_name = '마케팅팀';
 -- 매출 등록
