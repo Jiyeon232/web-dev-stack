@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor @AllArgsConstructor @Data
 public class Film {
-
-	private int filmId;
-	private String title;
-	private String description;
+	
+	private int id; // film_id
+	private String title; // title
+	private String desc; // description
 	
 }
