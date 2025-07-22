@@ -12,4 +12,5 @@ public interface FilmMapper {
 
 	List<Film> showFilm(PagingDTO paging);
 	int total();
+	
 }
