@@ -3,7 +3,7 @@
 	<resultMap id="FilmMap" type="Film">
 		<id property="id" column="film_id"/>
 		<result property="title" column="title"/>
-		<result property="desc" column="description" />
+		<result property="desc" column="description"/>
 	</resultMap>
 	
 	<select id="showFilm" parameterType="PagingDTO" resultMap="FilmMap">

@@ -88,3 +88,12 @@ SELECT book_no FROM book WHERE title = 'aaa';
 DELETE FROM member WHERE id = 'aaa';
 DELETE FROM book WHERE book_no = 1;
 DELETE FROM rent WHERE rent_no = 2;
+
+-- -------------------------------------------
+CREATE TABLE board (
+    no INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    content TEXT,
+    url VARCHAR(100),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
