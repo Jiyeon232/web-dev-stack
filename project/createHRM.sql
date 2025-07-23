@@ -72,7 +72,7 @@ CREATE TABLE performance_review (
     review_id INT AUTO_INCREMENT PRIMARY KEY, -- 평가 번호 (자동 증가, 기본 키)
     emp_no INT NOT NULL, -- 평가 대상 직원 번호 (외래 키, 필수)
     evaluator_emp_no INT NOT NULL, -- 평가자 직원 번호 (자기 자신 제외, 필수)
-    review_date DATE NOT NULL, -- 평가 날짜 (필수)
+    review_date DATE NOT NULL DEFAULT (CURRENT_DATE), -- 평가 날짜 (필수)
     attitude_score INT CHECK (attitude_score BETWEEN 1 AND 5), -- 근무 태도 점수 (1~5)
     achieve_score INT CHECK (achieve_score BETWEEN 1 AND 5), -- 성과 점수 (1~5)
     comments TEXT -- 평가 코멘트 (선택)

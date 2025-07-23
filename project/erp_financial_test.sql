@@ -1,16 +1,4 @@
 -- 재무관리
-DROP TABLE salary;
-DROP TABLE budget;
-DROP TABLE transaction;
-DROP TABLE purchase;
-DROP TABLE sale_manage;
-
-SELECT * FROM salary;
-SELECT * FROM budget;
-SELECT * FROM transaction;
-SELECT * FROM purchase;
-SELECT * FROM sale_manage;
-
 -- 급여 관리
 CREATE TABLE salary(
 	salary_no INT AUTO_INCREMENT PRIMARY KEY, -- 급여 번호
@@ -37,6 +25,17 @@ CREATE TABLE budget(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 생성일시
     dept_no INT -- 부서 번호
 );
+INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
+VALUES('Y', '2025-Y1 ', 200000, 'plan', '2025-01-01', 1);
+INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
+VALUES('Q', '2025-Q2 ', 100000, 'plan', '2025-01-01', 1);
+INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
+VALUES('Q', '2025-Q3 ', 100000, 'plan', '2025-01-01', 2);
+INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
+VALUES('Y', '2025-Y1 ', 200000, 'plan', '2025-01-01', 5);
+SELECT * FROM budget;
+DROP TABLE budget;
+
 
 -- 수입/지출 관리
 CREATE TABLE transaction(
@@ -49,6 +48,19 @@ CREATE TABLE transaction(
     -- emp_no INT, -- 직원 번호
     dept_no INT -- 부서 번호 (통계 처리 하려면) 
 );
+INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
+VALUES('수입', 100000, '판매대금', 'desc', '2025-07-22', 1);
+INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
+VALUES('지출', 100000, '매입대금', 'desc', '2025-07-22', 2);
+INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
+VALUES('지출', 200000, '매입대금', 'desc', '2025-07-22', 3);
+INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
+VALUES('수입', 150000, '판매대금', 'desc', '2025-08-22', 5);
+INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
+VALUES('지출', 3000000, '매입대금', 'desc', '2025-08-23', 4);
+SELECT * FROM transaction;
+DROP TABLE transaction;
+
 
 -- 의류 ERP (매입 내역 관리용) -> 외부에서 구매한 내역
 -- 상품/자재 , 매입일, 단가/수랑, 부가세, 공급업체, 부서
@@ -62,6 +74,13 @@ CREATE TABLE purchase(
     purchase_date DATE, -- 매입일
     product_code INT NOT NULL -- 상품 번호 외래키
 );
+INSERT INTO purchase(unit_price, quantity, var_amount, total_amount, purchase_date, product_code) 
+VALUES(1000, 200, 100000, 5000000, '2025-07-21', 1);
+INSERT INTO purchase(unit_price, quantity, var_amount, total_amount, purchase_date, product_code) 
+VALUES(2000, 500, 300000, 10000000, '2025-07-23', 4);
+SELECT * FROM purchase;
+DROP TABLE purchase;
+
 
 CREATE TABLE sale_manage(
 	sm_no INT AUTO_INCREMENT PRIMARY KEY, -- 매출 번호
@@ -71,27 +90,41 @@ CREATE TABLE sale_manage(
     total_amount INT, -- 총액
     product_code INT NOT NULL -- 품목 번호 외래키
 );
+INSERT INTO sale_manage(sale_date, quantity, var_amount, total_amount, product_code) 
+VALUES('2025-07-21', 10, 10000, 2000000, 1);
+INSERT INTO sale_manage(sale_date, quantity, var_amount, total_amount, product_code) 
+VALUES('2025-07-22', 20, 50000, 2500000, 2);
+INSERT INTO sale_manage(sale_date, quantity, var_amount, total_amount, product_code) 
+VALUES('2025-06-22', 20, 50000, 2000000, 5);
+SELECT * FROM sale_manage;
+DROP TABLE sale_mamage;
 
--- salary → employee_info(emp_no)
-ALTER TABLE salary
-ADD FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
--- salary -> bonus_payment(bonus_payment_no)
-ALTER TABLE salary
-ADD FOREIGN KEY (bonus_payment_no) REFERENCES bonus_payment(bonus_payment_no);
--- budget → department(dept_no)
-ALTER TABLE budget
-ADD FOREIGN KEY (dept_no) REFERENCES department(dept_no);
--- transaction → employee_info(emp_no)
--- ALTER TABLE transaction
--- ADD FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
--- transaction → department(dept_no)
-ALTER TABLE transaction
-ADD FOREIGN KEY (dept_no) REFERENCES department(dept_no);
--- purchase → product_name(product_code)
-ALTER TABLE purchase
-ADD FOREIGN KEY (product_code) REFERENCES product_name(product_code);
-ALTER TABLE sale_manage
-ADD FOREIGN KEY (product_code) REFERENCES product_name(product_code);
+
+SELECT trans_no, trans_type, trans_amount, category, trans_desc, trans_date, dept_name
+FROM transaction
+JOIN department USING(dept_no);
+
+SELECT * FROM department;
+SELECT period_type, annual_budget, plan, dept_name 
+FROM budget JOIN department USING(dept_no)
+WHERE dept_name = '인사팀';
+
+SELECT * FROM product_name;
+SELECT sm_no, sale_date, quantity, var_amount, total_amount, product_name 
+FROM sale_manage
+JOIN product_name USING(product_code)
+WHERE product_category = '상의';
+
+SELECT sm_no, sale_date, quantity, var_amount, total_amount, product_name 
+FROM sale_manage
+JOIN product_name USING(product_code)
+WHERE product_category = '상의'
+AND product_name LIKE CONCAT ('%폴로%');
+
+SELECT sm_no, sale_date, quantity, var_amount, total_amount, product_name  
+FROM sale_manage 
+JOIN product_name USING(product_code)
+WHERE sale_date LIKE '%2025-07%';
 
 
 -- 예산 편성(관리자)
@@ -119,7 +152,8 @@ SELECT * FROM purchase;
 -- 월별 매입 내역 조회
 SELECT * FROM purchase WHERE purchase_date LIKE '%2025-07%';
 -- 급여 자동 계산/조회
-SELECT emp_name, (base_salary+bonus+payment-deduction-tax) FROM salary 
+SELECT emp_name, salary_date, (base_salary+bonus+payment-deduction-tax) 
+FROM salary 
 JOIN employee_info USING(emp_no)
 JOIN bonus_payment USING(bonus_payment_no);
 -- 전체 거래내역 조회
