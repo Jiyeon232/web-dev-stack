@@ -7,10 +7,13 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.upload.model.dto.BoardDTO;
+import com.kh.upload.model.vo.Board;
 import com.kh.upload.service.BoardService;
 
 @Controller
@@ -60,6 +63,21 @@ public class BoardController {
 			String fileName = fileUpload(file);
 		}
 		
+		return "redirect:/";
+	}
+	
+	@GetMapping("/list")
+	public String list(Model model) {
+		List<Board> list = service.selectBoard();
+		System.out.println(list);
+		model.addAttribute("list", list);
+		
+		return "list";
+	}
+	
+	@PostMapping("/write")
+	public String write(Board vo) {
+		service.insertBoard(vo);
 		return "redirect:/";
 	}
 	

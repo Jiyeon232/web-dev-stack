@@ -1,6 +1,6 @@
-package com.kh.upload.vo;
+package com.kh.upload.model.vo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor @AllArgsConstructor @Data
 public class Board {
-
+	
 	private int no;
 	private String title;
-	private String text;
+	private String content;
 	private String url;
-	private LocalDate createdAt;
+	private LocalDateTime createdAt;
 	
 }

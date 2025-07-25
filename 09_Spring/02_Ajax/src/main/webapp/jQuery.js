@@ -58,7 +58,7 @@ $(function () {
       console.log(`keypress - e.key : ${e.key}, e.keyCode : ${e.keyCode}`);
     },
     keyup: (e) => {
-      // 키보드 떼어질 때
+      // 키보드 떼어질 때 -> 이것만 기억해도 됨!
       console.log(`keyup - e.key : ${e.key}, e.keyCode : ${e.keyCode}`);
     },
   });

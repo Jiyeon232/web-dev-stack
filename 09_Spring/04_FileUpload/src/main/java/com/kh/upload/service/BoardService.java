@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.upload.mapper.BoardMapper;
-import com.kh.upload.vo.Board;
+import com.kh.upload.model.vo.Board;
 
 @Service
 public class BoardService implements BoardMapper {
-
+	
 	@Autowired
 	private BoardMapper mapper;
 
 	@Override
-	public void insertBoard() {
-		mapper.insertBoard();
+	public void insertBoard(Board vo) {
+		mapper.insertBoard(vo);
 	}
 
 	@Override
@@ -25,8 +25,8 @@ public class BoardService implements BoardMapper {
 	}
 
 	@Override
-	public List<Board> searchBoard(Board vo) {
-		return mapper.searchBoard(vo);
+	public Board searchBoard(int no) {
+		return mapper.searchBoard(no);
 	}
 
 	@Override
