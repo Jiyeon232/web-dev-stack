@@ -12,6 +12,26 @@ CREATE TABLE salary(
     emp_no INT, -- 사원 번호
     bonus_payment_no INT -- 보너스 수당 번호
 );
+INSERT INTO salary(salary_date, base_salary, emp_no)
+VALUES('2025-07-25', 20000000, 1);
+INSERT INTO salary(salary_date, base_salary, emp_no)
+VALUES('2025-07-25', 25000000, 2);
+INSERT INTO salary(salary_date, base_salary, emp_no)
+VALUES('2025-07-25', 35000000, 3);
+INSERT INTO salary(salary_date, base_salary, emp_no)
+VALUES('2025-07-25', 40000000, 4);
+INSERT INTO salary(salary_date, base_salary, emp_no)
+VALUES('2025-07-25', 28000000, 5);
+INSERT INTO salary(salary_date, base_salary, bonus, emp_no)
+VALUES('2025-07-25', 28000000, 400000, 6);
+INSERT INTO salary(salary_date, base_salary, bonus, deduction, emp_no)
+VALUES('2025-07-25', 30000000, 300000, 150000, 7);
+SELECT * FROM salary;
+SELECT dept_name, emp_name, salary_date, base_salary, bonus, deduction, tax , payment
+FROM salary 
+JOIN employee_info USING(emp_no)
+JOIN department USING(dept_no)
+JOIN bonus_payment USING(bonus_payment_no);
 
 -- 예산 계획
 CREATE TABLE budget(
@@ -99,6 +119,15 @@ VALUES('2025-06-22', 20, 50000, 2000000, 5);
 SELECT * FROM sale_manage;
 DROP TABLE sale_mamage;
 
+SELECT product_name, unit_price, quantity, var_amount, total_amount, purchase_date
+FROM purchase
+JOIN product_name USING(product_code)
+WHERE product_category = '상의';
+
+SELECT product_name, unit_price, quantity, var_amount, total_amount, purchase_date
+FROM purchase
+JOIN product_name USING(product_code)
+WHERE product_name LIKE '%셔츠%';
 
 SELECT trans_no, trans_type, trans_amount, category, trans_desc, trans_date, dept_name
 FROM transaction
@@ -155,6 +184,7 @@ SELECT * FROM purchase WHERE purchase_date LIKE '%2025-07%';
 SELECT emp_name, salary_date, (base_salary+bonus+payment-deduction-tax) 
 FROM salary 
 JOIN employee_info USING(emp_no)
+JOIN department USING(dept_no)
 JOIN bonus_payment USING(bonus_payment_no);
 -- 전체 거래내역 조회
 SELECT trans_no, trans_type, trans_amount, category, trans_desc, trans_date, dept_name FROM transaction JOIN department USING(dept_no);
