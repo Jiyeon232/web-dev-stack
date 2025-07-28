@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <select id="deptName">
+      <option value="dept" disabled selected>부서 선택</option>
+      <option value="인사팀">인사팀</option>
+      <option value="마케팅팀">마케팅팀</option>
+      <option value="재무팀">재무팀</option>
+      <option value="개발팀">개발팀</option>
+      <option value="품질관리팀">품질관리팀</option>
+      <option value="판매팀">판매팀</option>
+    </select>
+    <br />
+
+    <input type="text" list="deptList" />
+    <datalist id="deptList">
+      <option value="인사팀"></option>
+      <option value="마케팅팀"></option>
+      <option value="재무팀"></option>
+      <option value="개발팀"></option>
+      <option value="품질관리팀"></option>
+      <option value="판매팀"></option>
+    </datalist>
+    <br />
+
+    <select id="deptName">
+      <option value="dept" disabled selected>연/분기/월</option>
+      <option value="Y">연(Y)</option>
+      <option value="Q">분기(Q)</option>
+      <option value="M">월(M)</option>
+    </select>
+    <br />
+
+    <input type="text" list="periodList" />
+    <datalist id="periodList">
+      <option value="연(Y)"></option>
+      <option value="분기(Q)"></option>
+      <option value="월(M)"></option>
+    </datalist>
+
+    <option value="" data-=""></option>
+
+    <script></script>
+  </body>
+</html>
