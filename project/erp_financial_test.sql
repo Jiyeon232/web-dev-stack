@@ -56,6 +56,8 @@ VALUES('Y', '2025-Y1 ', 200000, 'plan', '2025-01-01', 5);
 SELECT * FROM budget;
 DROP TABLE budget;
 
+SELECT CONCAT(YEAR(created_at), '-', period_type, budget_no) FROM budget;
+
 
 -- 수입/지출 관리
 CREATE TABLE transaction(
