@@ -1,5 +1,6 @@
 -- 재무관리
 -- 급여 관리
+DROP TABLE salary;
 CREATE TABLE salary(
 	salary_no INT AUTO_INCREMENT PRIMARY KEY, -- 급여 번호
     salary_date DATE, -- 지급일
@@ -26,6 +27,7 @@ INSERT INTO salary(salary_date, base_salary, bonus, emp_no)
 VALUES('2025-07-25', 28000000, 400000, 6);
 INSERT INTO salary(salary_date, base_salary, bonus, deduction, emp_no)
 VALUES('2025-07-25', 30000000, 300000, 150000, 7);
+
 SELECT * FROM salary;
 SELECT dept_name, emp_name, salary_date, base_salary, bonus, deduction, tax , payment
 FROM salary 
@@ -33,7 +35,9 @@ JOIN employee_info USING(emp_no)
 JOIN department USING(dept_no)
 JOIN bonus_payment USING(bonus_payment_no);
 
+
 -- 예산 계획
+DROP TABLE budget;
 CREATE TABLE budget(
 	budget_no INT AUTO_INCREMENT PRIMARY KEY, -- 예산 번호
     period_type VARCHAR(2) CHECK (period_type IN ('Y', 'Q', 'M')), --  (연/분기/월: Y/Q/M)
@@ -42,24 +46,24 @@ CREATE TABLE budget(
     -- target_sales INT, -- 목표 매출
     plan TEXT, -- 계획 상세
 	-- achieved VARCHAR(2) CHECK (achieved IN ('T', 'F')), -- 목표 달성 여부	
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 생성일시
+    created_at DATE, -- 생성일시
     dept_no INT -- 부서 번호
 );
 INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
 VALUES('Y', '2025-Y1 ', 200000, 'plan', '2025-01-01', 1);
 INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
-VALUES('Q', '2025-Q2 ', 100000, 'plan', '2025-01-01', 1);
+VALUES('Q', '2025-Q2 ', 100000, 'plan', '2025-01-01', 2);
 INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
-VALUES('Q', '2025-Q3 ', 100000, 'plan', '2025-01-01', 2);
-INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
-VALUES('Y', '2025-Y1 ', 200000, 'plan', '2025-01-01', 5);
-SELECT * FROM budget;
-DROP TABLE budget;
+VALUES('Q', '2025-Q3 ', 100000, 'plan', '2025-01-01', 3);
 
+SELECT * FROM budget;
 SELECT CONCAT(YEAR(created_at), '-', period_type, budget_no) FROM budget;
+
+UPDATE budget SET period_value = CONCAT(YEAR(created_at), '-', period_type, budget_no);
 
 
 -- 수입/지출 관리
+DROP TABLE transaction;
 CREATE TABLE transaction(
 	trans_no INT AUTO_INCREMENT PRIMARY KEY, -- 거래 번호
     trans_type VARCHAR(10) CHECK (trans_type IN ('수입', '지출')), -- 수입/지출
@@ -81,11 +85,11 @@ VALUES('수입', 150000, '판매대금', 'desc', '2025-08-22', 5);
 INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
 VALUES('지출', 3000000, '매입대금', 'desc', '2025-08-23', 4);
 SELECT * FROM transaction;
-DROP TABLE transaction;
 
 
 -- 의류 ERP (매입 내역 관리용) -> 외부에서 구매한 내역
 -- 상품/자재 , 매입일, 단가/수랑, 부가세, 공급업체, 부서
+DROP TABLE purchase;
 CREATE TABLE purchase(
 	purchase_no INT AUTO_INCREMENT PRIMARY KEY, -- 매입 번호
     -- vendor VARCHAR(100), -- 공급업체
@@ -101,7 +105,6 @@ VALUES(1000, 200, 100000, 5000000, '2025-07-21', 1);
 INSERT INTO purchase(unit_price, quantity, var_amount, total_amount, purchase_date, product_code) 
 VALUES(2000, 500, 300000, 10000000, '2025-07-23', 4);
 SELECT * FROM purchase;
-DROP TABLE purchase;
 
 
 CREATE TABLE sale_manage(
@@ -165,6 +168,16 @@ WHERE sale_date LIKE '%2025-07%';
 SELECT dept_name, period_type, annual_budget, plan FROM budget JOIN department USING(dept_no);
 -- 부서별 예산 선택 조회
 SELECT dept_name, period_type, annual_budget, plan FROM budget JOIN department USING(dept_no) WHERE dept_name = '마케팅팀';
+-- 예산 수정
+/*
+UPDATE budget
+SET period_type = #{periodType}, 
+	annual_budget = #{annualBudget}, 
+    plan = #{plan}, 
+    created_at = #{createdAt}, 
+    dept_no = #{deptNo} 
+WHERE budget_no = #{budgetNo};
+*/
 -- 매출 등록
 -- INSERT INTO sale_manage(sale_date, quantity, var_amount, total_amount, product_code)
 -- VALUES(#{saleDate}, #{quantity}, #{varAmount}, #{totalAmount}, #{product_code});
@@ -182,6 +195,9 @@ SELECT * FROM transaction WHERE category = '상의';
 SELECT * FROM purchase;
 -- 월별 매입 내역 조회
 SELECT * FROM purchase WHERE purchase_date LIKE '%2025-07%';
+-- 매입 단가 및 수량 등록
+-- INSERT INTO purchase(product_code, unit_price, quantity, var_amount, total_amount, purchase_date) 
+-- VALUES(#{productCode}, #{unitPrice}, #{quantity}, #{varAmount}, #{totalAmount}, #{purchaseDate});
 -- 급여 자동 계산/조회
 SELECT emp_name, salary_date, (base_salary+bonus+payment-deduction-tax) 
 FROM salary 
@@ -198,13 +214,20 @@ WHERE trans_type = '수입';
 SELECT trans_no, trans_type, trans_amount, category, trans_desc, trans_date, dept_name 
 FROM transaction JOIN department USING(dept_no)
 WHERE trans_date LIKE '%2025-07%';
--- 매입 단가 및 수량 등록
--- INSERT INTO purchase(product_code, unit_price, quantity, var_amount, total_amount, purchase_date) 
--- VALUES(#{productCode}, #{unitPrice}, #{quantity}, #{varAmount}, #{totalAmount}, #{purchaseDate});
 -- 거래내역 등록
 -- INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
 -- VALUES(#{transType}, #{transAmount}, #{category}, #{transDesc}, #{transDate}, #{deptNo});
-
+-- 거래내역 수정
+/*
+UPDATE transaction
+SET trans_type = #{transType}, 
+	trans_amount = #{transAmount}, 
+    category = #{category}, 
+    trans_desc = #{transDesc}, 
+    trans_date = #{transDate}, 
+    dept_no = #{deptNo} 
+WHERE trans_no = #{transNo};
+*/
 
 
 

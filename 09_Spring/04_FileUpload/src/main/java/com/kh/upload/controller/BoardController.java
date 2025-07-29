@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.upload.model.dto.BoardDTO;
@@ -32,11 +33,11 @@ public class BoardController {
 		// 중복 방지를 위한 UUID 적용
 		UUID uuid = UUID.randomUUID();
 		// System.out.println(uuid.toString());
-
+		
 		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
 		System.out.println(fileName);
 		File copyFile = new File("\\\\192.168.0.35\\upload\\" + fileName);
-
+		
 		try {
 			file.transferTo(copyFile);
 		} catch (IllegalStateException | IOException e) {
@@ -68,7 +69,7 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public String list(Model model) {
-		List<Board> list = service.selectBoard();
+		List<BoardDTO> list = service.selectBoard();
 		System.out.println(list);
 		model.addAttribute("list", list);
 		
@@ -76,9 +77,34 @@ public class BoardController {
 	}
 	
 	@PostMapping("/write")
-	public String write(Board vo) {
+	public String write(BoardDTO dto) {
+		System.out.println(dto.getTitle());
+		System.out.println(dto.getContent());
+		System.out.println(dto.getFile());
+		
+		// 이미지 업로드 추가
+		// 추가한 파일 -> url로 변환!
+		String fileName = fileUpload(dto.getFile());
+		
+		// board 테이블에 데이터 추가
+		Board vo = new Board();
+		vo.setTitle(dto.getTitle());
+		vo.setContent(dto.getContent());
+		vo.setUrl(fileName);
 		service.insertBoard(vo);
-		return "redirect:/";
+		
+		System.out.println(vo);
+		
+		return "redirect:/view?no=" + vo.getNo();
+	}
+	
+	// view?no=${item.no} -> view.jsp 데이터 보여주기
+	@GetMapping("/view")
+	public String view(Model model, int no) {
+		System.out.println(no);
+		Board board = service.searchBoard(no);
+		model.addAttribute("board", board);
+		return "view";
 	}
 	
 }

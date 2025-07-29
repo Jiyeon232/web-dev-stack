@@ -41,10 +41,10 @@ CREATE TABLE department (
 CREATE TABLE attendance_log (
     att_id INT AUTO_INCREMENT PRIMARY KEY, -- 출퇴근 기록 번호 (자동 증가, 기본 키)
     emp_no INT NOT NULL, -- 직원 번호 (외래 키, 필수)
-    work_date DATE NOT NULL, -- 근무 날짜 (필수)
-    check_in TIME, -- 출근 시간 (선택)
+    work_date DATE NOT NULL DEFAULT (CURRENT_DATE), -- 근무 날짜 (필수)
+    check_in TIME DEFAULT (CURRENT_TIMESTAMP), -- 출근 시간 (선택)
     check_out TIME, -- 퇴근 시간 (선택)
-    status VARCHAR(10) DEFAULT '결근' CHECK (status IN ('출근', '지각', '조퇴', '결근', '휴가')) -- 근태 상태 (제한된 값)
+    status VARCHAR(10) CHECK (status IN ('휴가')) -- 근태 상태 (제한된 값)
 );
 
 -- 휴가 신청 테이블 생성

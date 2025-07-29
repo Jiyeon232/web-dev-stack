@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.upload.mapper.BoardMapper">
-	<resultMap id="BoardMap" type="Board">
+	<resultMap id="boardMap" type="Board">
 		<id property="no" column="no"/>
 		<result property="title" column="title"/>
 		<result property="content" column="content"/>
@@ -8,16 +8,16 @@
 		<result property="createdAt" column="created_at"/>
 	</resultMap>
 	
-	<insert id="insertBoard" parameterType="Board">
+	<insert id="insertBoard" parameterType="Board" useGeneratedKeys="true" keyProperty="no" keyColumn="no">
 		INSERT INTO board(title, content, url) 
 		VALUES(#{title}, #{content}, #{url})
 	</insert>
 	
-	<select id="selectBoard" resultMap="BoardMap">
+	<select id="selectBoard" resultMap="boardMap">
 		SELECT * FROM board
 	</select>
 	
-	<select id="searchBoard" parameterType="int" resultType="Board">
+	<select id="searchBoard" parameterType="int" resultMap="boardMap">
 		SELECT * FROM board 
 		WHERE no = #{no}
 	</select>

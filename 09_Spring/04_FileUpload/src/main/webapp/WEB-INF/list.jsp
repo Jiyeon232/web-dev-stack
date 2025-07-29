@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,16 +16,18 @@
 		<h1>List Page</h1>
 		<table class="table">
 			<thead>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성시간</th>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성시간</th>
+				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${list}" var="item">
 					<tr>
 						<td>${item.no}</td>
-						<td>${item.title}</td>
-						<td>${item.createdAt}</td>
+						<td><a href="/view?no=${item.no}">${item.title}</a></td>
+						<td><fmt:formatDate value="${item.formatDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -63,5 +66,9 @@
 		  </div>
 		</div>
 	</div>
+	
+	<script>
+		
+	</script>
 </body>
 </html>
