@@ -13,8 +13,8 @@
 		VALUES(#{title}, #{content}, #{url})
 	</insert>
 	
-	<select id="selectBoard" resultMap="boardMap">
-		SELECT * FROM board
+	<select id="selectBoard" parameterType="PagingDTO" resultMap="boardMap">
+		SELECT * FROM board LIMIT #{offset}, #{limit}
 	</select>
 	
 	<select id="searchBoard" parameterType="int" resultMap="boardMap">
@@ -22,7 +22,7 @@
 		WHERE no = #{no}
 	</select>
 	
-	<update id="updateBoard" parameterType="Board">
+	<update id="updateBoard" parameterType="BoardDTO">
 		UPDATE board
 		SET title = #{title},
 			content = #{content},
@@ -34,5 +34,9 @@
 		DELETE FROM board 
 		WHERE no = #{no}
 	</delete>
+	
+	<select id="page" resultType="int">
+		SELECT count(*) FROM board
+	</select>
 	
 </mapper>

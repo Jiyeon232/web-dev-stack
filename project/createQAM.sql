@@ -20,14 +20,15 @@ product_category VARCHAR(20) NOT NULL
 
 -- 품질검사 테이블
 CREATE TABLE qc (
-    qc_code INT AUTO_INCREMENT PRIMARY KEY, 
-    check_material VARCHAR(30) CHECK (check_material IN ('합격', '불합격')), -- 부자재 검사
-    check_color VARCHAR(30) CHECK (check_color IN ('합격', '불합격')),       -- 색깔 검사
-    check_damage VARCHAR(30) CHECK (check_damage IN ('합격', '불합격')),     -- 손상 검사
-    qc_desc TEXT,         -- 평가 결과 특이사항
-    qc_date DATE DEFAULT NULL,         -- 품질 검사 날짜
-    emp_no INT DEFAULT NULL,           -- 직원 외래키 (검사자)
-    product_no INT NOT NULL -- 제품 외래키
+    qc_code INT AUTO_INCREMENT PRIMARY KEY,
+    check_material VARCHAR(30) CHECK (check_material IN ('합격', '불합격')) DEFAULT NULL, -- 부자재 검사
+    check_color VARCHAR(30) CHECK (check_color IN ('합격', '불합격')) DEFAULT NULL,       -- 색깔 검사
+    check_damage VARCHAR(30) CHECK (check_damage IN ('합격', '불합격')) DEFAULT NULL,     -- 손상 검사
+    qc_desc TEXT,              -- 평가 결과 특이사항
+    qc_date DATE DEFAULT NULL, -- 품질 검사 날짜
+    emp_no INT DEFAULT NULL,   -- 직원 외래키 (검사자)
+    product_no INT NOT NULL,   -- 제품 외래키
+    CONSTRAINT uq_qc_product UNIQUE (product_no)
 );
 
 -- 판매 테이블

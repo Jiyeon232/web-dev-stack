@@ -22,7 +22,7 @@ CREATE TABLE budget(
     -- target_sales INT, -- 목표 매출
     plan TEXT, -- 계획 상세
 	-- achieved VARCHAR(2) CHECK (achieved IN ('T', 'F')), -- 목표 달성 여부	
-    created_at DATE, -- 생성일시
+    execution_date DATE, -- 예산 집행일
     dept_no INT NOT NULL -- 부서 번호 외래키
 );
 

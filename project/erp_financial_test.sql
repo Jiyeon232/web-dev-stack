@@ -46,20 +46,20 @@ CREATE TABLE budget(
     -- target_sales INT, -- 목표 매출
     plan TEXT, -- 계획 상세
 	-- achieved VARCHAR(2) CHECK (achieved IN ('T', 'F')), -- 목표 달성 여부	
-    created_at DATE, -- 생성일시
+    execution_date DATE, -- 생성일시
     dept_no INT -- 부서 번호
 );
-INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
+INSERT INTO budget(period_type, period_value, annual_budget, plan, execution_date, dept_no) 
 VALUES('Y', '2025-Y1 ', 200000, 'plan', '2025-01-01', 1);
-INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
+INSERT INTO budget(period_type, period_value, annual_budget, plan, execution_date, dept_no) 
 VALUES('Q', '2025-Q2 ', 100000, 'plan', '2025-01-01', 2);
-INSERT INTO budget(period_type, period_value, annual_budget, plan, created_at, dept_no) 
+INSERT INTO budget(period_type, period_value, annual_budget, plan, execution_date, dept_no) 
 VALUES('Q', '2025-Q3 ', 100000, 'plan', '2025-01-01', 3);
 
 SELECT * FROM budget;
-SELECT CONCAT(YEAR(created_at), '-', period_type, budget_no) FROM budget;
+SELECT CONCAT(YEAR(execution_date), '-', period_type, budget_no) FROM budget;
 
-UPDATE budget SET period_value = CONCAT(YEAR(created_at), '-', period_type, budget_no);
+UPDATE budget SET period_value = CONCAT(YEAR(execution_date), '-', period_type, budget_no);
 
 
 -- 수입/지출 관리
@@ -107,6 +107,7 @@ VALUES(2000, 500, 300000, 10000000, '2025-07-23', 4);
 SELECT * FROM purchase;
 
 
+DROP TABLE sale_mamage;
 CREATE TABLE sale_manage(
 	sm_no INT AUTO_INCREMENT PRIMARY KEY, -- 매출 번호
     sale_date DATE, -- 매출 발생일자
@@ -122,7 +123,7 @@ VALUES('2025-07-22', 20, 50000, 2500000, 2);
 INSERT INTO sale_manage(sale_date, quantity, var_amount, total_amount, product_code) 
 VALUES('2025-06-22', 20, 50000, 2000000, 5);
 SELECT * FROM sale_manage;
-DROP TABLE sale_mamage;
+SELECT * FROM product_name;
 
 SELECT product_name, unit_price, quantity, var_amount, total_amount, purchase_date
 FROM purchase

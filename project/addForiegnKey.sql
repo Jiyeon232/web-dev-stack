@@ -21,6 +21,8 @@ ALTER TABLE bonus_payment ADD
     FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no); -- 직원 번호 외래 키 
 ALTER TABLE quitter ADD
     FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no); -- 직원 번호 외래 키
+ALTER TABLE leave_request ADD
+    FOREIGN KEY (emp_no) REFERENCES leave_remain(emp_no); -- 직원 번호 외래 키
     
 -- qam 외래키 생성
 ALTER TABLE product ADD
@@ -33,6 +35,8 @@ ALTER TABLE sale ADD
 FOREIGN KEY (product_no) REFERENCES product(product_no);
 ALTER TABLE defective ADD
 FOREIGN KEY (product_no) REFERENCES product(product_no);
+ALTER TABLE qc
+ADD CONSTRAINT uq_qc_product UNIQUE (product_no);
 
 -- fm 외래키 생성
 -- salary → employee_info(emp_no)
