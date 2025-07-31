@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor
 public class PagingDTO {
 
+	private String keyword;
+	
 	private int offset = 0; // 시작 위치
 	private int limit = 2; // 개수
 	
 	private int page = 1; // 현재 페이지
-	private int pageSize = 10; // 한 페이지 당 페이지 개수 1 ~ 10, 11 ~ 20 ...
+	private int pageSize = 5; // 한 페이지 당 페이지 개수 1 ~ 10, 11 ~ 20 ...
 	private int endPage = this.pageSize; // 한 페이지의 마지막 페이지 수
 	private int startPage = this.endPage - this.pageSize + 1; // 한 페이지의 첫 페이지 수
 	

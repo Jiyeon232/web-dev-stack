@@ -13,9 +13,9 @@ public interface BoardMapper {
 
 	void insertBoard(Board vo);
 	List<Board> selectBoard(PagingDTO paging);
+	int page(String keyword);
 	Board searchBoard(int no); // 리스트 하나 -> Board 만 있어도 OK
 	void updateBoard(BoardDTO dto);
 	void deleteBoard(int no);
-	int page();
 	
 }

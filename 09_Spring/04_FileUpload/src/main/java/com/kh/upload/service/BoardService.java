@@ -24,8 +24,10 @@ public class BoardService {
 	}
 
 	public List<BoardDTO> selectBoard(PagingDTO paging) {
+		
 		paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
 		List<Board> list = mapper.selectBoard(paging);
+		
 		List<BoardDTO> dtoList = new ArrayList<BoardDTO>();
 		for (Board b : list) {
 			BoardDTO dto = new BoardDTO();
@@ -36,6 +38,10 @@ public class BoardService {
 			dtoList.add(dto);
 		}
 		return dtoList;
+	}
+
+	public int page(String keyword) {
+		return mapper.page(keyword);
 	}
 	
 	public Board searchBoard(int no) {
@@ -48,10 +54,6 @@ public class BoardService {
 	
 	public void deleteBoard(int no) {
 		mapper.deleteBoard(no);
-	}
-	
-	public int page() {
-		return mapper.page();
 	}
 	
 }

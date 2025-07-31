@@ -90,6 +90,7 @@ DELETE FROM book WHERE book_no = 1;
 DELETE FROM rent WHERE rent_no = 2;
 
 -- -------------------------------------------
+DROP TABLE board;
 CREATE TABLE board (
     no INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
@@ -97,3 +98,15 @@ CREATE TABLE board (
     url VARCHAR(100),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+SELECT * FROM board;
+SELECT count(*) FROM board;
+
+-- -------------------------------------------
+DROP TABLE user;
+CREATE TABLE user(
+	id VARCHAR(50) PRIMARY KEY,
+	pwd VARCHAR(100),
+	name VARCHAR(100),
+	role VARCHAR(20) DEFAULT 'ROLE_USER'
+);
+SELECT * FROM user;

@@ -72,10 +72,11 @@ public class BoardController {
 	@GetMapping("/list")
 	public String list(Model model, PagingDTO paging) {
 		List<BoardDTO> list = service.selectBoard(paging);
-		//System.out.println(list);
-		//System.out.println(paging);
+		//System.out.println(list); // 리스트 받아오는지 확인
+		//System.out.println(paging); // PagingDTO 값이 바뀌는지 확인
+		//System.out.println("keyword : " + paging.getKeyword()); // 키워드 받아오는지 확인
 		model.addAttribute("list", list);
-		model.addAttribute("paging", new PagingDTO(paging.getPage(), service.page()));
+		model.addAttribute("paging", new PagingDTO(paging.getPage(), service.page(paging.getKeyword())));
 		
 		return "list";
 	}
