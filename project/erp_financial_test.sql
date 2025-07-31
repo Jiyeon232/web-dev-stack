@@ -122,7 +122,22 @@ INSERT INTO sale_manage(sale_date, quantity, var_amount, total_amount, product_c
 VALUES('2025-07-22', 20, 50000, 2500000, 2);
 INSERT INTO sale_manage(sale_date, quantity, var_amount, total_amount, product_code) 
 VALUES('2025-06-22', 20, 50000, 2000000, 5);
+
 SELECT * FROM sale_manage;
+SELECT * FROM product_name;
+
+-- 매출 등록
+SELECT * FROM sale
+JOIN product USING(product_no)
+WHERE sale_date = '2025-07-25';
+SELECT count(*) FROM sale
+JOIN product USING(product_no)
+WHERE product_code = 4
+AND sale_date = '2025-07-25';
+-- UPDATE sale set sale_date = '2025-07-25';
+
+SELECT * FROM product
+JOIN product_name USING(product_code);
 SELECT * FROM product_name;
 
 SELECT product_name, unit_price, quantity, var_amount, total_amount, purchase_date
