@@ -2,7 +2,7 @@
 <mapper namespace="com.kh.security.mapper.UserMapper">
 	<insert id="register" parameterType="User">
 		INSERT INTO user
-		VALUES(#{id}, #{pwd}, #{name} #{role})
+		VALUES(#{id}, #{pwd}, #{name}, #{role})
 	</insert>
 	
 	<select id="login" parameterType="String" resultType="User">

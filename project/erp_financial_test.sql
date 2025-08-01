@@ -61,6 +61,9 @@ SELECT CONCAT(YEAR(execution_date), '-', period_type, budget_no) FROM budget;
 
 UPDATE budget SET period_value = CONCAT(YEAR(execution_date), '-', period_type, budget_no);
 
+SELECT * FROM budget
+JOIN department USING(dept_no)
+WHERE budget_no = 1;
 
 -- 수입/지출 관리
 DROP TABLE transaction;
@@ -190,7 +193,7 @@ UPDATE budget
 SET period_type = #{periodType}, 
 	annual_budget = #{annualBudget}, 
     plan = #{plan}, 
-    created_at = #{createdAt}, 
+    execution_date = #{executionDate}, 
     dept_no = #{deptNo} 
 WHERE budget_no = #{budgetNo};
 */

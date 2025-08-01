@@ -1,7 +1,11 @@
 package com.kh.security.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.kh.security.model.vo.User;
 
 @Controller
 public class PageController {
@@ -16,5 +20,17 @@ public class PageController {
 	
 	@GetMapping("/login")
 	public void login() {}
+	
+	@GetMapping("/mypage")
+	public void mypage() {}
+	
+	@GetMapping("/admin")
+	public void admin() {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = (User) auth.getPrincipal();
+		System.out.println(user);
+		
+	}
 	
 }

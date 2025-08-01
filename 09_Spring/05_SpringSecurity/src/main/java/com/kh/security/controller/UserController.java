@@ -11,17 +11,18 @@ import com.kh.security.service.UserService;
 public class UserController {
 
 	@Autowired
-	private UserService service;
+	private UserService userService;
 	
 	@PostMapping("/register")
 	public String register(User vo) {
-		service.register(vo);
-		return "redirect:/";
+		//System.out.println(vo);
+		userService.register(vo);
+		return "redirect:/login";
 	}
 	
 	@PostMapping("/login")
 	public String login(String id) {
-		service.login(id);
+		//userService.login(id);
 		return "redirect:/";
 	}
 	
