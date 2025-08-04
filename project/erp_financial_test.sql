@@ -132,14 +132,14 @@ SELECT * FROM product_name;
 -- 일별 매출 조회
 SELECT product_code, product_name, product_price, sale_date FROM sale
 JOIN product USING(product_no)
-JOIN product_name USING(product_code)
-WHERE sale_date = '2025-07-25';
+JOIN product_name USING(product_code);
+-- WHERE sale_date = '2025-07-25';
 -- 제품별 판매 수량 조회
-SELECT product_name, count(*) FROM sale
+SELECT product_name, product_code, product_price, sale_date, count(*) FROM sale
 JOIN product USING(product_no)
 JOIN product_name USING(product_code)
 WHERE sale_date = '2025-07-25'
-GROUP BY product_name;
+GROUP BY product_name, product_code, product_price, sale_date;
 -- 품목별 수량 조회
 SELECT product_name, count(*) FROM sale
 JOIN product USING(product_no)
