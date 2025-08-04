@@ -1,6 +1,9 @@
 package com.kh.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +11,7 @@ import com.kh.security.mapper.UserMapper;
 import com.kh.security.model.vo.User;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserMapper mapper;
@@ -28,15 +31,11 @@ public class UserService {
 		mapper.register(vo);
 	}
 
-	public User login(User vo) {
-		User user = mapper.login(vo.getId()); // 로그인 할 때 사용자가 입력한 값
-		
-		if (user != null && bcpe.matches(vo.getPwd(), user.getPwd())) {
-			System.out.println("로그인 성공!");
-			return user;
-		}
-		
-		return null;
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = mapper.login(username);
+		System.out.println(user);
+		return user;
 	}
 	
 }

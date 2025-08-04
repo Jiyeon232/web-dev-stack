@@ -8,11 +8,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor @AllArgsConstructor @Data @Builder
+@NoArgsConstructor @AllArgsConstructor @Data
 public class User implements UserDetails {
 
 	private String id;
@@ -32,7 +31,7 @@ public class User implements UserDetails {
 	
 	@Override
 	public String getUsername() {
-		return id;
+		return this.id; // this.id 대신 그냥 id 가능!
 	}
 	
 }

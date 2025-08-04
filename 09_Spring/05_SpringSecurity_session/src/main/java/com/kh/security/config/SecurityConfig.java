@@ -1,35 +1,33 @@
 package com.kh.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
-	
-	@Autowired
-	private JwtAuthenticationFilter jwtFilter;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		return http
 				.csrf(csrf -> csrf.disable()) // 웹 보안 토큰 설정 (비활성화)
-				.httpBasic(basic -> basic.disable()) // HTTP Basic 인증 방식 비활성화 -> JWT 토큰 방식 사용
-				.sessionManagement(session -> 
-					session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 설정 -> STATELESS 무상태 방식으로 설정
 				.authorizeHttpRequests(authorize -> 
 					authorize
-						.requestMatchers("/mypage").authenticated()
-						.requestMatchers("/admin").hasRole("ADMIN")
-						.anyRequest().permitAll()
+						.requestMatchers("/mypage").authenticated() // authenticated : 로그인된 사용자만 접속 가능
+						.requestMatchers("/admin").hasRole("ADMIN") // 관리자일 때만 관리자 페이지 접근 가능
+						.anyRequest().permitAll() // 어떤 요청(anyRequest)이든 전부 다 수락(permitAll)
 				)
-				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+				.formLogin(form -> 
+					form.loginPage("/login") // 로그인 페이지 설정
+						.defaultSuccessUrl("/mypage") // 로그인 성공하면 마이페이지로 이동
+				)
+				.logout(logout -> 
+					logout.logoutUrl("/logout") // 로그아웃
+						.logoutSuccessUrl("/")
+				)
 				.build();
 	}
 	

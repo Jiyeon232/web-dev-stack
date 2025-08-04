@@ -129,13 +129,22 @@ VALUES('2025-06-22', 20, 50000, 2000000, 5);
 SELECT * FROM sale_manage;
 SELECT * FROM product_name;
 
--- 매출 등록
-SELECT * FROM sale
+-- 일별 매출 조회
+SELECT product_code, product_name, product_price, sale_date FROM sale
 JOIN product USING(product_no)
+JOIN product_name USING(product_code)
 WHERE sale_date = '2025-07-25';
-SELECT count(*) FROM sale
+-- 제품별 판매 수량 조회
+SELECT product_name, count(*) FROM sale
 JOIN product USING(product_no)
-WHERE product_code = 4
+JOIN product_name USING(product_code)
+WHERE sale_date = '2025-07-25'
+GROUP BY product_name;
+-- 품목별 수량 조회
+SELECT product_name, count(*) FROM sale
+JOIN product USING(product_no)
+JOIN product_name USING(product_code)
+WHERE product_code = 2
 AND sale_date = '2025-07-25';
 -- UPDATE sale set sale_date = '2025-07-25';
 
