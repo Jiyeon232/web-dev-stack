@@ -1,12 +1,17 @@
 
 
+-- user 아이디 패스워드 생성
+CREATE TABLE user(
+	id VARCHAR(50) UNIQUE NOT NULL,
+    pwd VARCHAR(100) NOT NULL,
+    role VARCHAR(100) NOT NULL,
+    emp_no INT NOT NULL
+);
 
 -- 직원 정보 테이블 생성
 CREATE TABLE employee_info (
     emp_no INT AUTO_INCREMENT PRIMARY KEY, -- 직원 고유 번호 (자동 증가, 기본 키)
-    emp_id VARCHAR(50) UNIQUE NOT NULL, -- 로그인용 직원 ID (고유, 필수)
     emp_in VARCHAR(14) UNIQUE NOT NULL CHECK (emp_in REGEXP '^[0-9]{6}-[1-4][0-9]{6}$'), -- 주민등록번호 (고유, 형식 확인, 필수)
-    emp_pwd VARCHAR(100) NOT NULL, -- 비밀번호 (해시 처리, 필수)
     emp_name VARCHAR(50) NOT NULL, -- 직원 이름 (필수)
     job_no INT NOT NULL, -- 직급 번호 (외래 키, 필수)
     dept_no INT NOT NULL, -- 부서 번호 (외래 키, 필수)
@@ -44,7 +49,7 @@ CREATE TABLE attendance_log (
     work_date DATE NOT NULL DEFAULT (CURRENT_DATE), -- 근무 날짜 (필수)
     check_in TIME DEFAULT (CURRENT_TIMESTAMP), -- 출근 시간 (선택)
     check_out TIME, -- 퇴근 시간 (선택)
-    status VARCHAR(10) CHECK (status IN ('휴가')) -- 근태 상태 (제한된 값)
+    status VARCHAR(10) CHECK (status IN ('휴가')) -- 근태 상태 휴가아니면 null로
 );
 
 -- 휴가 신청 테이블 생성
@@ -79,30 +84,16 @@ CREATE TABLE performance_review (
 );
 
 -- 연봉 변경 테이블 생성
-CREATE TABLE salary_history (
-    salary_id INT AUTO_INCREMENT PRIMARY KEY, -- 연봉 변경 번호 (자동 증가, 기본 키)
-    emp_no INT NOT NULL, -- 직원 번호 (외래 키, 필수)
-    change_date DATE NOT NULL, -- 연봉 변경 날짜 (필수)
-    old_salary INT, -- 이전 연봉 (선택)
-    new_salary INT, -- 새 연봉 (0 이상, 필수)
-    reason TEXT -- 변경 사유 (선택)
-);
+-- CREATE TABLE salary_history (
+--     salary_id INT AUTO_INCREMENT PRIMARY KEY, -- 연봉 변경 번호 (자동 증가, 기본 키)
+--     emp_no INT NOT NULL, -- 직원 번호 (외래 키, 필수)
+--     change_date DATE NOT NULL, -- 연봉 변경 날짜 (필수)
+--     old_salary INT, -- 이전 연봉 (선택)
+--     new_salary INT, -- 새 연봉 (0 이상, 필수)
+--     reason TEXT -- 변경 사유 (선택)
+-- );
 
--- 수당 종류 테이블 생성
-CREATE TABLE bonus (
-    bonus_no INT AUTO_INCREMENT PRIMARY KEY, -- 수당 번호 (자동 증가, 기본 키)
-    bonus_name VARCHAR(50), -- 수당 이름 (선택)
-    bonus_desc TEXT -- 수당 설명 (선택)
-);
 
--- 수당 지급 테이블 생성
-CREATE TABLE bonus_payment (
-    bonus_payment_no INT AUTO_INCREMENT PRIMARY KEY, -- 수당 지급 번호 (자동 증가, 기본 키)
-    payment INT NOT NULL, -- 수당 금액 (필수)
-    pay_date DATE NOT NULL, -- 지급 날짜 (필수)
-    bonus_no INT NOT NULL, -- 수당 번호 (외래 키, 필수)
-    emp_no INT NOT NULL -- 직원 번호 (외래 키, 필수)
-);
 
 -- 퇴사자 관리 테이블 생성
 CREATE TABLE quitter (
