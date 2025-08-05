@@ -2,6 +2,7 @@ package com.kh.security.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,6 +37,13 @@ public class UserController {
 			return token;
 		}
 		return "redirect:/";
+	}
+	
+	@ResponseBody
+	@GetMapping("/check")
+	public User check(String token) {
+		//System.out.println(token); // 토큰 데이터 받아오는지 확인
+		return tokenProvider.validate(token);
 	}
 	
 }

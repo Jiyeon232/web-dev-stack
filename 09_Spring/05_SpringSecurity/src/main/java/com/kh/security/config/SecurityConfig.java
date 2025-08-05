@@ -22,7 +22,7 @@ public class SecurityConfig {
 				.csrf(csrf -> csrf.disable()) // 웹 보안 토큰 설정 (비활성화)
 				.httpBasic(basic -> basic.disable()) // HTTP Basic 인증 방식 비활성화 -> JWT 토큰 방식 사용
 				.sessionManagement(session -> 
-					session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 설정 -> STATELESS 무상태 방식으로 설정
+					session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 설정 -> STATELESS 무상태 방식으로 설정 (세션 사용 안함!)
 				.authorizeHttpRequests(authorize -> 
 					authorize
 						.requestMatchers("/mypage").authenticated()
