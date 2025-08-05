@@ -90,6 +90,36 @@ VALUES('지출', 3000000, '매입대금', 'desc', '2025-08-23', 4);
 SELECT * FROM transaction;
 
 
+-- 그룹별(부서->지점) 매출 내역 총액 조회 --> 거래내역 테이블에 금액 입력
+SELECT dept_no, SUM(product_price)
+	FROM sale
+	JOIN product USING(product_no)
+	JOIN product_name USING(product_code)
+    JOIN department USING (dept_no)
+	WHERE sale_date IS NOT NULL
+	AND sale_date LIKE CONCAT('%', sale_date,'%')
+GROUP BY dept_no;
+
+-- 제품별 매출 내역 총액 조회
+SELECT product_name, SUM(product_price)
+	FROM sale
+	JOIN product USING(product_no)
+	JOIN product_name USING(product_code)
+	WHERE sale_date IS NOT NULL
+	AND sale_date LIKE CONCAT('%', sale_date,'%')
+GROUP BY product_name;
+
+-- 날짜별 매출 내역 조회
+SELECT sale_date, SUM(product_price)
+	FROM sale
+	JOIN product USING(product_no)
+	JOIN product_name USING(product_code)
+    WHERE sale_date IS NOT NULL
+GROUP BY sale_date;
+
+SELECT * FROM sale;
+
+
 -- 의류 ERP (매입 내역 관리용) -> 외부에서 구매한 내역
 -- 상품/자재 , 매입일, 단가/수랑, 부가세, 공급업체, 부서
 DROP TABLE purchase;
@@ -128,6 +158,7 @@ VALUES('2025-06-22', 20, 50000, 2000000, 5);
 
 SELECT * FROM sale_manage;
 SELECT * FROM product_name;
+
 
 -- 일별 매출 조회
 SELECT product_code, product_name, product_price, sale_date FROM sale
