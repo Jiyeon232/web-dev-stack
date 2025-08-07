@@ -47,7 +47,8 @@ CREATE TABLE purchase(
     var_amount INT, -- 부가세 총액
     total_amount INT, -- 총액 unit_price * quantity 
     purchase_date DATE, -- 매입일
-    product_code INT NOT NULL -- 상품 번호 외래키
+    product_code INT NOT NULL, -- 상품 번호 외래키
+    brand_code INT NOT NULL -- 거래처 번호 외래키
 );
 
 CREATE TABLE sale_manage(

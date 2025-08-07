@@ -19,9 +19,16 @@ SELECT CONCAT(YEAR(execution_date), '-', period_type, budget_no) FROM budget;
 
 UPDATE budget SET period_value = CONCAT(YEAR(execution_date), '-', period_type, budget_no);
 
-SELECT * FROM budget
-JOIN department USING(dept_no)
-WHERE budget_no = 1;
+-- 남은 예산 계산
+SELECT dept_no, dept_name, annual_budget,
+    IFNULL(SUM(trans_amount), 0) AS used_amount,
+    annual_budget - IFNULL(SUM(trans_amount), 0) AS remaining_budget
+FROM department
+LEFT JOIN budget USING(dept_no)
+LEFT JOIN transaction USING(dept_no) 
+WHERE period_type = 'Y' AND trans_type = '지출'
+GROUP BY dept_no, dept_name, annual_budget
+ORDER BY dept_no;
 
 -- 급여 관리
 DROP TABLE salary;
@@ -115,10 +122,18 @@ CREATE TABLE purchase(
     var_amount INT, -- 부가세 총액
     total_amount INT, -- 총액 unit_price * quantity 
     purchase_date DATE, -- 매입일
-    product_code INT NOT NULL -- 상품 번호 외래키
+    product_code INT NOT NULL, -- 상품 번호 외래키
+    brand_code INT NOT NULL -- 거래처 번호 외래키
 );
 SELECT * FROM purchase;
+SELECT * FROM brand;
 
+-- 일별, 거래처별 총 매입금액 조회하기
+SELECT brand_code, purchase_date, SUM(total_amount) AS total_purchase
+FROM purchase
+JOIN brand USING(brand_code)
+WHERE purchase_date = '2025-08-07'
+GROUP BY brand_code, purchase_date;
 
 DROP TABLE sale_manage;
 CREATE TABLE sale_manage(
