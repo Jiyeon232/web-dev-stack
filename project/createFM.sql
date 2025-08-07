@@ -9,8 +9,8 @@ CREATE TABLE salary(
     deduction INT, -- 공제 금액
     tax INT, -- 세금
     
-    emp_no INT NOT NULL, -- 사원 번호 외래키
-    bonus_payment_no INT -- 보너스 수당 번호 외래키
+    emp_no INT NOT NULL -- 사원 번호 외래키
+   -- bonus_payment_no INT -- 보너스 수당 번호 외래키
 );
 
 -- 예산 계획

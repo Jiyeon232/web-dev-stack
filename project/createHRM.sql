@@ -2,8 +2,8 @@
 
 -- user 아이디 패스워드 생성
 CREATE TABLE user(
-	id VARCHAR(50) UNIQUE NOT NULL,
-    pwd VARCHAR(100) NOT NULL,
+	username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
     role VARCHAR(100) NOT NULL,
     emp_no INT NOT NULL
 );

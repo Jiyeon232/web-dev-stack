@@ -1,40 +1,4 @@
 -- 재무관리
--- 급여 관리
-DROP TABLE salary;
-CREATE TABLE salary(
-	salary_no INT AUTO_INCREMENT PRIMARY KEY, -- 급여 번호
-    salary_date DATE, -- 지급일
-    base_salary INT, -- 기본급
-    bonus INT, -- 보너스
-    -- overtime INT, -- 초과근무 수당 (OT)
-    deduction INT, -- 공제 금액
-    tax INT, -- 세금
-    
-    emp_no INT, -- 사원 번호
-    bonus_payment_no INT -- 보너스 수당 번호
-);
-INSERT INTO salary(salary_date, base_salary, emp_no)
-VALUES('2025-07-25', 20000000, 1);
-INSERT INTO salary(salary_date, base_salary, emp_no)
-VALUES('2025-07-25', 25000000, 2);
-INSERT INTO salary(salary_date, base_salary, emp_no)
-VALUES('2025-07-25', 35000000, 3);
-INSERT INTO salary(salary_date, base_salary, emp_no)
-VALUES('2025-07-25', 40000000, 4);
-INSERT INTO salary(salary_date, base_salary, emp_no)
-VALUES('2025-07-25', 28000000, 5);
-INSERT INTO salary(salary_date, base_salary, bonus, emp_no)
-VALUES('2025-07-25', 28000000, 400000, 6);
-INSERT INTO salary(salary_date, base_salary, bonus, deduction, emp_no)
-VALUES('2025-07-25', 30000000, 300000, 150000, 7);
-
-SELECT * FROM salary;
-SELECT dept_name, emp_name, salary_date, base_salary, bonus, deduction, tax , payment
-FROM salary 
-JOIN employee_info USING(emp_no)
-JOIN department USING(dept_no)
-JOIN bonus_payment USING(bonus_payment_no);
-
 
 -- 예산 계획
 DROP TABLE budget;
@@ -49,12 +13,6 @@ CREATE TABLE budget(
     execution_date DATE, -- 생성일시
     dept_no INT -- 부서 번호
 );
-INSERT INTO budget(period_type, period_value, annual_budget, plan, execution_date, dept_no) 
-VALUES('Y', '2025-Y1 ', 200000, 'plan', '2025-01-01', 1);
-INSERT INTO budget(period_type, period_value, annual_budget, plan, execution_date, dept_no) 
-VALUES('Q', '2025-Q2 ', 100000, 'plan', '2025-01-01', 2);
-INSERT INTO budget(period_type, period_value, annual_budget, plan, execution_date, dept_no) 
-VALUES('Q', '2025-Q3 ', 100000, 'plan', '2025-01-01', 3);
 
 SELECT * FROM budget;
 SELECT CONCAT(YEAR(execution_date), '-', period_type, budget_no) FROM budget;
@@ -64,6 +22,35 @@ UPDATE budget SET period_value = CONCAT(YEAR(execution_date), '-', period_type, 
 SELECT * FROM budget
 JOIN department USING(dept_no)
 WHERE budget_no = 1;
+
+-- 급여 관리
+DROP TABLE salary;
+CREATE TABLE salary(
+	salary_no INT AUTO_INCREMENT PRIMARY KEY, -- 급여 번호
+    salary_date DATE, -- 지급일
+    base_salary INT, -- 기본급
+    bonus INT, -- 보너스
+    -- overtime INT, -- 초과근무 수당 (OT)
+    deduction INT, -- 공제 금액
+    tax INT, -- 세금
+    
+    emp_no INT -- 사원 번호
+    -- bonus_payment_no INT -- 보너스 수당 번호
+);
+SELECT * FROM salary;
+SELECT * FROM employee_info;
+
+SELECT emp_name, (base_salary+bonus-deduction) AS total FROM salary
+JOIN employee_info USING(emp_no)
+WHERE salary_date LIKE CONCAT('%2025-08%');
+
+-- 부서별 월별 인건비 총합 조회
+SELECT dept_no, salary_date, SUM(base_salary+bonus-deduction) AS totalSal
+FROM salary
+JOIN employee_info USING(emp_no)
+JOIN department USING(dept_no)
+WHERE salary_date LIKE CONCAT('%2025-08%')
+GROUP BY dept_no, salary_date;
 
 -- 수입/지출 관리
 DROP TABLE transaction;
@@ -77,18 +64,17 @@ CREATE TABLE transaction(
     -- emp_no INT, -- 직원 번호
     dept_no INT -- 부서 번호 (통계 처리 하려면) 
 );
-INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
-VALUES('수입', 100000, '판매대금', 'desc', '2025-07-22', 1);
-INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
-VALUES('지출', 100000, '매입대금', 'desc', '2025-07-22', 2);
-INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
-VALUES('지출', 200000, '매입대금', 'desc', '2025-07-22', 3);
-INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
-VALUES('수입', 150000, '판매대금', 'desc', '2025-08-22', 5);
-INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
-VALUES('지출', 3000000, '매입대금', 'desc', '2025-08-23', 4);
 SELECT * FROM transaction;
+SELECT * FROM department;
 
+ /*  
+CREATE OR REPLACE VIEW vw_balance
+AS SELECT trans_no, trans_type, trans_amount, trans_date, trans_desc, annual_budget, dept_name,
+	(annual_budget - trans_amount) AS balance
+	FROM department
+    JOIN budget USING(dept_no)
+    JOIN transaction USING(dept_no);
+  */  
 
 -- 그룹별(부서->지점) 매출 내역 총액 조회 --> 거래내역 테이블에 금액 입력
 SELECT dept_no, SUM(product_price)
@@ -117,8 +103,6 @@ SELECT sale_date, SUM(product_price)
     WHERE sale_date IS NOT NULL
 GROUP BY sale_date;
 
-SELECT * FROM sale;
-
 
 -- 의류 ERP (매입 내역 관리용) -> 외부에서 구매한 내역
 -- 상품/자재 , 매입일, 단가/수랑, 부가세, 공급업체, 부서
@@ -133,14 +117,10 @@ CREATE TABLE purchase(
     purchase_date DATE, -- 매입일
     product_code INT NOT NULL -- 상품 번호 외래키
 );
-INSERT INTO purchase(unit_price, quantity, var_amount, total_amount, purchase_date, product_code) 
-VALUES(1000, 200, 100000, 5000000, '2025-07-21', 1);
-INSERT INTO purchase(unit_price, quantity, var_amount, total_amount, purchase_date, product_code) 
-VALUES(2000, 500, 300000, 10000000, '2025-07-23', 4);
 SELECT * FROM purchase;
 
 
-DROP TABLE sale_mamage;
+DROP TABLE sale_manage;
 CREATE TABLE sale_manage(
 	sm_no INT AUTO_INCREMENT PRIMARY KEY, -- 매출 번호
     sale_date DATE, -- 매출 발생일자
@@ -149,35 +129,35 @@ CREATE TABLE sale_manage(
     total_amount INT, -- 총액
     product_code INT NOT NULL -- 품목 번호 외래키
 );
-INSERT INTO sale_manage(sale_date, quantity, var_amount, total_amount, product_code) 
-VALUES('2025-07-21', 10, 10000, 2000000, 1);
-INSERT INTO sale_manage(sale_date, quantity, var_amount, total_amount, product_code) 
-VALUES('2025-07-22', 20, 50000, 2500000, 2);
-INSERT INTO sale_manage(sale_date, quantity, var_amount, total_amount, product_code) 
-VALUES('2025-06-22', 20, 50000, 2000000, 5);
-
 SELECT * FROM sale_manage;
-SELECT * FROM product_name;
 
+
+-- 일별 매출 총합 조회
+SELECT sale_date, SUM(total_amount) AS daily_sales
+FROM sale_manage
+WHERE sale_date = '2025-08-03';
+
+SELECT * FROM sale;
+SELECT * FROM product_name;
+SELECT * FROM department;
 
 -- 일별 매출 조회
-SELECT product_code, product_name, product_price, sale_date FROM sale
+SELECT product_code, product_name, product_price, sale_date, dept_no FROM sale
 JOIN product USING(product_no)
 JOIN product_name USING(product_code);
--- WHERE sale_date = '2025-07-25';
+-- WHERE sale_date = '2025-08-06';
 -- 제품별 판매 수량 조회
-SELECT product_name, product_code, product_price, sale_date, count(*) FROM sale
+SELECT product_name, product_code, product_price, sale_date, count(*), SUM(product_price) AS total_amount FROM sale
 JOIN product USING(product_no)
 JOIN product_name USING(product_code)
-WHERE sale_date = '2025-07-25'
+WHERE sale_date = '2025-08-06'
 GROUP BY product_name, product_code, product_price, sale_date;
--- 품목별 수량 조회
-SELECT product_name, count(*) FROM sale
+-- 일별 매출 총액 조회
+SELECT sale_date, SUM(product_price) FROM sale
 JOIN product USING(product_no)
 JOIN product_name USING(product_code)
-WHERE product_code = 2
-AND sale_date = '2025-07-25';
--- UPDATE sale set sale_date = '2025-07-25';
+WHERE sale_date = '2025-08-06'
+GROUP BY sale_date;
 
 SELECT * FROM product
 JOIN product_name USING(product_code);
