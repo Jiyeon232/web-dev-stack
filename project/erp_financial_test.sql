@@ -125,8 +125,25 @@ CREATE TABLE purchase(
     product_code INT NOT NULL, -- 상품 번호 외래키
     brand_code INT NOT NULL -- 거래처 번호 외래키
 );
+DELETE FROM purchase;
 SELECT * FROM purchase;
 SELECT * FROM brand;
+SELECT * FROM transaction;
+
+SELECT brand_code, brand_name, purchase_date, SUM(total_amount) AS total_purchase FROM purchase
+JOIN brand USING(brand_code)
+WHERE brand_code = 1
+AND purchase_date = '2025-08-08'
+GROUP BY brand_code, brand_name, purchase_date;
+
+SELECT purchase_no, product_name, product_category,  unit_price, quantity, var_amount, total_amount, purchase_date, brand_name
+		FROM purchase
+        JOIN brand USING(brand_code)
+		JOIN product_name USING(product_code);
+        
+SELECT DISTINCT product_category
+FROM product_name;
+
 
 -- 일별, 거래처별 총 매입금액 조회하기
 SELECT brand_code, purchase_date, SUM(total_amount) AS total_purchase
@@ -155,6 +172,7 @@ WHERE sale_date = '2025-08-03';
 SELECT * FROM sale;
 SELECT * FROM product_name;
 SELECT * FROM department;
+select * from performance_review;
 
 -- 일별 매출 조회
 SELECT product_code, product_name, product_price, sale_date, dept_no FROM sale
