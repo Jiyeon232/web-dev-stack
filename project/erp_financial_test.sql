@@ -47,6 +47,13 @@ CREATE TABLE salary(
 SELECT * FROM salary;
 SELECT * FROM employee_info;
 
+SELECT bonus_payment_no, payment, pay_date, bonus_no, emp_no, dept_name, job_title, bonus_name,emp_name
+		FROM bonus_payment
+		JOIN employee_info USING(emp_no)
+		JOIN department USING(dept_no)
+		JOIN job_position USING(job_no)
+		JOIN bonus USING(bonus_no);
+
 SELECT emp_name, (base_salary+bonus-deduction) AS total FROM salary
 JOIN employee_info USING(emp_no)
 WHERE salary_date LIKE CONCAT('%2025-08%');
@@ -162,6 +169,27 @@ CREATE TABLE sale_manage(
     product_code INT NOT NULL -- 품목 번호 외래키
 );
 SELECT * FROM sale_manage;
+
+SELECT
+	product_name,
+	product_code,
+	product_price,
+	sale_date,
+	count(*) AS quantity 
+FROM sale
+JOIN product USING(product_no)
+JOIN product_name USING(product_code)
+WHERE sale_date = '2025-08-08'
+GROUP BY product_name, product_code, product_price, sale_date
+LIMIT 0, 10;
+
+SELECT
+	count(*)
+FROM sale
+JOIN product USING(product_no)
+JOIN product_name USING(product_code)
+WHERE sale_date = '2025-08-08'
+GROUP BY product_name, product_code, product_price, sale_date;
 
 
 -- 일별 매출 총합 조회
