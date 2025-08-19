@@ -106,14 +106,6 @@
   font-weight: bold;
 }
 
-input[list^="deptList"] {
-  padding: 5px 10px;
-  text-align: center;
-  height: fit-content;
-  border-style: none;
-  background-color: var(--table-td-color);
-}
-
 /* 테이블 */
 table.data-table {
   width: 100%;
@@ -144,6 +136,16 @@ table.data-table {
 .data-table td input[type="date"],
 .data-table td input[type="number"],
 .data-table td select {
+  text-align: center;
+  border-style: none;
+  background-color: var(--table-td-color);
+}
+
+/* 데이터 리스트 */
+input[list^="List"] {
+  padding: 5px 10px;
+  text-align: center;
+  height: fit-content;
   border-style: none;
   background-color: var(--table-td-color);
 }

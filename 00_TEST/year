@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Year Picker</title>
+    <style>
+      #yearPicker {
+        width: 120px;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="yearPicker">연도 선택:</label>
+    <input type="text" id="yearPicker" readonly />
+
+    <div
+      id="yearList"
+      style="
+        display: none;
+        border: 1px solid #ccc;
+        max-height: 150px;
+        overflow-y: auto;
+        position: absolute;
+        background: #fff;
+      "
+    ></div>
+
+    <script>
+      const yearInput = document.getElementById("yearPicker");
+      const yearList = document.getElementById("yearList");
+      const currentYear = new Date().getFullYear();
+
+      // 연도 목록 생성
+      function populateYears() {
+        yearList.innerHTML = "";
+        for (let y = currentYear - 50; y <= currentYear + 10; y++) {
+          const div = document.createElement("div");
+          div.textContent = y;
+          div.style.padding = "5px";
+          div.style.cursor = "pointer";
+          div.addEventListener("click", () => {
+            yearInput.value = y;
+            yearList.style.display = "none";
+          });
+          yearList.appendChild(div);
+        }
+      }
+
+      // 입력 클릭 시 연도 목록 표시
+      yearInput.addEventListener("click", () => {
+        if (yearList.style.display === "none") {
+          populateYears();
+          yearList.style.display = "block";
+          const rect = yearInput.getBoundingClientRect();
+          yearList.style.top = rect.bottom + window.scrollY + "px";
+          yearList.style.left = rect.left + window.scrollX + "px";
+        } else {
+          yearList.style.display = "none";
+        }
+      });
+
+      // 다른 곳 클릭 시 닫기
+      document.addEventListener("click", (e) => {
+        if (!yearInput.contains(e.target) && !yearList.contains(e.target)) {
+          yearList.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>

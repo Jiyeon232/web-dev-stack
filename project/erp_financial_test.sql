@@ -19,6 +19,10 @@ SELECT CONCAT(YEAR(execution_date), '-', period_type, budget_no) FROM budget;
 
 UPDATE budget SET period_value = CONCAT(YEAR(execution_date), '-', period_type, budget_no);
 
+SELECT * FROM budget
+JOIN department USING(dept_no)
+WHERE execution_date LIKE CONCAT('%2025-08%');
+
 -- 남은 예산 계산
 SELECT dept_no, dept_name, annual_budget,
     IFNULL(SUM(trans_amount), 0) AS used_amount,
@@ -156,7 +160,7 @@ FROM product_name;
 SELECT brand_code, purchase_date, SUM(total_amount) AS total_purchase
 FROM purchase
 JOIN brand USING(brand_code)
-WHERE purchase_date = '2025-08-07'
+WHERE purchase_date = '2025-08-08'
 GROUP BY brand_code, purchase_date;
 
 DROP TABLE sale_manage;
@@ -180,8 +184,7 @@ FROM sale
 JOIN product USING(product_no)
 JOIN product_name USING(product_code)
 WHERE sale_date = '2025-08-08'
-GROUP BY product_name, product_code, product_price, sale_date
-LIMIT 0, 10;
+GROUP BY product_name, product_code, product_price, sale_date;
 
 SELECT
 	count(*)
