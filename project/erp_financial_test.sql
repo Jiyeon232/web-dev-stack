@@ -173,7 +173,47 @@ CREATE TABLE sale_manage(
     product_code INT NOT NULL -- 품목 번호 외래키
 );
 SELECT * FROM sale_manage;
+SELECT * FROM sale;
+UPDATE sale SET sale_date = '2025-08-18'
+WHERE sale_no = 114;
+-- ************************************************
+-- 일별 매출액 합계
+SELECT sale_date, SUM(total_amount)
+FROM sale_manage
+WHERE sale_date = '2025-08-08';
 
+-- NOW() : 현재 날짜, 시간 포함 / CURDATE() : 현재 날짜만
+-- 오늘 포함 7일
+SELECT sale_date, SUM(total_amount) AS sale_amount
+FROM sale_manage
+WHERE sale_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()
+GROUP BY sale_date
+ORDER BY sale_date;
+
+-- 오늘 제외하고 7일
+SELECT sale_date, SUM(total_amount) AS sale_amount
+FROM sale_manage
+WHERE sale_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+	AND sale_date < CURDATE()
+GROUP BY sale_date
+ORDER BY sale_date;
+
+-- 월별 매출액 합계
+SELECT SUM(total_amount) AS month_amount
+FROM sale_manage
+WHERE sale_date LIKE CONCAT('%2025-08%');
+
+-- 제품별 판매 수량(월별)
+SELECT product_name, SUM(quantity)
+FROM sale_manage
+JOIN product_name USING(product_code)
+WHERE sale_date LIKE CONCAT('%2025-08%')
+GROUP BY product_name;
+-- ************************************************
+
+SELECT * FROM product_name;
+
+-- dailySale 조회
 SELECT
 	product_name,
 	product_code,
