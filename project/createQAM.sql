@@ -35,7 +35,8 @@ CREATE TABLE qc (
 CREATE TABLE sale(
 sale_no INT AUTO_INCREMENT PRIMARY KEY,
 sale_date DATE DEFAULT NULL, -- 판매일
-product_no INT NOT NULL -- 상품 외래키
+product_no INT NOT NULL, -- 상품 외래키
+sale_registered CHAR(1) DEFAULT 'N' -- 매출 등록 여부
 );
 
 -- 불량품 테이블

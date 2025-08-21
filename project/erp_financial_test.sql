@@ -174,8 +174,8 @@ CREATE TABLE sale_manage(
 );
 SELECT * FROM sale_manage;
 SELECT * FROM sale;
-UPDATE sale SET sale_date = '2025-08-18'
-WHERE sale_no = 114;
+INSERT INTO sale_manage(sale_date, quantity, total_amount, product_code)
+VALUES('2025-07-18', 100, 24000000, 14);
 -- ************************************************
 -- 일별 매출액 합계
 SELECT sale_date, SUM(total_amount)
@@ -186,7 +186,15 @@ WHERE sale_date = '2025-08-08';
 -- 오늘 포함 7일
 SELECT sale_date, SUM(total_amount) AS sale_amount
 FROM sale_manage
-WHERE sale_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()
+WHERE sale_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 6 DAY) AND CURDATE()
+GROUP BY sale_date
+ORDER BY sale_date;
+
+-- 00:00 ~ 23:59 선택 일주일 치 결과
+SELECT sale_date, SUM(total_amount) AS sale_amount
+FROM sale_manage
+WHERE sale_date > DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+	AND sale_date < CURDATE() + INTERVAL 1 DAY
 GROUP BY sale_date
 ORDER BY sale_date;
 
@@ -203,15 +211,53 @@ SELECT SUM(total_amount) AS month_amount
 FROM sale_manage
 WHERE sale_date LIKE CONCAT('%2025-08%');
 
--- 제품별 판매 수량(월별)
-SELECT product_name, SUM(quantity)
+-- 현재월 포함 최근 7개월
+SELECT DATE_FORMAT(sale_date, '%Y-%m') AS sale_month,
+       SUM(total_amount) AS month_amount
+FROM sale_manage
+WHERE DATE_FORMAT(sale_date, '%Y-%m')
+      BETWEEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 6 MONTH), '%Y-%m')
+          AND DATE_FORMAT(CURDATE(), '%Y-%m')
+GROUP BY DATE_FORMAT(sale_date, '%Y-%m')
+ORDER BY sale_month;
+
+-- 현재월 제외 최근 6개월
+SELECT DATE_FORMAT(sale_date, '%Y-%m') AS sale_month,
+       SUM(total_amount) AS month_amount
+FROM sale_manage
+WHERE DATE_FORMAT(sale_date, '%Y-%m')
+      BETWEEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 6 MONTH), '%Y-%m')
+          AND DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m')
+GROUP BY DATE_FORMAT(sale_date, '%Y-%m')
+ORDER BY sale_month;
+
+SELECT DATE_FORMAT(NOW(), '%Y-%m');
+
+-- 제품별 판매 수량(8월)
+SELECT product_name, SUM(quantity) AS month_quantity
 FROM sale_manage
 JOIN product_name USING(product_code)
 WHERE sale_date LIKE CONCAT('%2025-08%')
 GROUP BY product_name;
+
+-- 제품별 판매 수량(월별)
+SELECT product_name, SUM(quantity) AS month_quantity
+FROM sale_manage
+JOIN product_name USING(product_code)
+WHERE DATE_FORMAT(sale_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')
+GROUP BY product_name;
 -- ************************************************
 
 SELECT * FROM product_name;
+SELECT * FROM sale;
+
+-- sale 테이블 플래그 컬럼 추가
+ALTER TABLE sale ADD COLUMN sale_registered CHAR(1) DEFAULT 'N';
+
+-- 매출 등록 시 sale_registered 값 업데이트
+UPDATE sale
+SET sale_registered = 'Y'
+WHERE sale_date = '2025-08-21';
 
 -- dailySale 조회
 SELECT
@@ -224,6 +270,7 @@ FROM sale
 JOIN product USING(product_no)
 JOIN product_name USING(product_code)
 WHERE sale_date = '2025-08-08'
+	AND sale_registered = 'N'
 GROUP BY product_name, product_code, product_price, sale_date;
 
 SELECT
