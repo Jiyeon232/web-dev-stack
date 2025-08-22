@@ -85,6 +85,30 @@ CREATE TABLE transaction(
 SELECT * FROM transaction;
 SELECT * FROM department;
 
+-- 현재월 포함 최근 7개월 지출
+SELECT DATE_FORMAT(trans_date, '%Y-%m') AS trans_month,
+       SUM(trans_amount) AS month_expenses
+FROM transaction
+JOIN department USING(dept_no)
+WHERE trans_type = '지출'
+	AND	DATE_FORMAT(trans_date, '%Y-%m')
+		BETWEEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 6 MONTH), '%Y-%m')
+			AND DATE_FORMAT(CURDATE(), '%Y-%m')
+GROUP BY DATE_FORMAT(trans_date, '%Y-%m')
+ORDER BY trans_month;
+
+-- 현재월 포함 최근 7개월 수입
+SELECT DATE_FORMAT(trans_date, '%Y-%m') AS trans_month,
+       SUM(trans_amount) AS month_income
+FROM transaction
+JOIN department USING(dept_no)
+WHERE trans_type = '수입'
+	AND	DATE_FORMAT(trans_date, '%Y-%m')
+		BETWEEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 6 MONTH), '%Y-%m')
+			AND DATE_FORMAT(CURDATE(), '%Y-%m')
+GROUP BY DATE_FORMAT(trans_date, '%Y-%m')
+ORDER BY trans_month;
+
  /*  
 CREATE OR REPLACE VIEW vw_balance
 AS SELECT trans_no, trans_type, trans_amount, trans_date, trans_desc, annual_budget, dept_name,

@@ -42,7 +42,7 @@ const dataFetch = async () => {
   console.log(markets.slice(0, -1));
   */
 
-  // forEach + 내가 원하는 형채로 가공하고자 할 때 -> map
+  // forEach + 내가 원하는 형태로 가공하고자 할 때 -> map
   const markets = krwMarkets.map((item) => item.market).join(",");
 
   const tickerResponse = await fetch(
