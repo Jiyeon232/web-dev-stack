@@ -20,7 +20,8 @@ CREATE TABLE employee_info (
     salary INT NOT NULL, -- 기본 연봉 (0 이상, 필수)
     addr VARCHAR(200), -- 주소 (선택)
     phone VARCHAR(20), -- 연락처 (선택)
-    email VARCHAR(100) -- 이메일 (형식 확인, 선택)
+    email VARCHAR(100), -- 이메일 (형식 확인, 선택)
+    url VARCHAR(200)
 );
 -- gender and age can be inferred by emp_in, which is 주민등록번호. 
 -- The first 6 numbers is when they were born(YY/MM/DD) and if 
@@ -93,7 +94,21 @@ CREATE TABLE performance_review (
 --     reason TEXT -- 변경 사유 (선택)
 -- );
 
+-- 수당 종류 테이블 생성
+CREATE TABLE bonus (
+    bonus_no INT AUTO_INCREMENT PRIMARY KEY, -- 수당 번호 (자동 증가, 기본 키)
+    bonus_name VARCHAR(50), -- 수당 이름 (선택)
+    bonus_desc TEXT -- 수당 설명 (선택)
+);
 
+-- 수당 지급 테이블 생성
+CREATE TABLE bonus_payment (
+    bonus_payment_no INT AUTO_INCREMENT PRIMARY KEY, -- 수당 지급 번호 (자동 증가, 기본 키)
+    payment INT NOT NULL, -- 수당 금액 (필수)
+    pay_date DATE NOT NULL, -- 지급 날짜 (필수)
+    bonus_no INT NOT NULL, -- 수당 번호 (외래 키, 필수)
+    emp_no INT NOT NULL -- 직원 번호 (외래 키, 필수)
+);
 
 -- 퇴사자 관리 테이블 생성
 CREATE TABLE quitter (

@@ -268,14 +268,14 @@ GROUP BY product_name;
 SELECT product_name, SUM(quantity) AS month_quantity
 FROM sale_manage
 JOIN product_name USING(product_code)
-WHERE DATE_FORMAT(sale_date, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')
+WHERE sale_date LIKE CONCAT ('%2025-07%')
 GROUP BY product_name;
 -- ************************************************
 
 SELECT * FROM product_name;
 SELECT * FROM sale;
 
--- sale 테이블 플래그 컬럼 추가
+-- **sale 테이블 플래그 컬럼 추가**
 ALTER TABLE sale ADD COLUMN sale_registered CHAR(1) DEFAULT 'N';
 
 -- 매출 등록 시 sale_registered 값 업데이트
