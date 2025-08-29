@@ -89,4 +89,3 @@ CREATE TABLE quitter (
     quit_pay_date DATE, -- 퇴직금 지급 날짜 (선택)
     emp_no INT NOT NULL -- 직원 번호 (외래 키, 필수)
 );
-

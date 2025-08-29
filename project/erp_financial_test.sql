@@ -171,14 +171,9 @@ WHERE brand_code = 1
 AND purchase_date = '2025-08-08'
 GROUP BY brand_code, brand_name, purchase_date;
 
-SELECT purchase_no, product_name, product_category,  unit_price, quantity, var_amount, total_amount, purchase_date, brand_name
-		FROM purchase
-        JOIN brand USING(brand_code)
-		JOIN product_name USING(product_code);
-        
+SELECT * FROM product_name;
 SELECT DISTINCT product_category
 FROM product_name;
-
 
 -- 일별, 거래처별 총 매입금액 조회하기
 SELECT brand_code, purchase_date, SUM(total_amount) AS total_purchase
@@ -274,6 +269,11 @@ GROUP BY product_name;
 
 SELECT * FROM product_name;
 SELECT * FROM sale;
+
+SELECT purchase_no, product_name, product_category, unit_price, quantity, var_amount, total_amount, purchase_date, brand_name
+		FROM purchase
+		JOIN brand USING(brand_code)
+		JOIN product_name USING(product_code);
 
 -- **sale 테이블 플래그 컬럼 추가**
 ALTER TABLE sale ADD COLUMN sale_registered CHAR(1) DEFAULT 'N';

@@ -48,9 +48,8 @@ reason TEXT
 -- 브랜드 테이블
 CREATE TABLE brand (
 	brand_code INT AUTO_INCREMENT PRIMARY KEY,
-    brand_name VARCHAR (30) CHECK (brand_name IN ('샤넬', '유니클로', '자라')),
-    brand_phone INT NOT NULL,
-    brand_account INT NOT NULL,
-    brand_bank VARCHAR (30) NOT NULL,
-    product_code INT NOT NULL -- 제품명 외래키
+    brand_name VARCHAR (30),
+    brand_phone VARCHAR (20) NOT NULL,
+    brand_account VARCHAR (30) NOT NULL,
+    brand_bank VARCHAR (30) NOT NULL
 );
