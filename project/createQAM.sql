@@ -1,5 +1,3 @@
-
-
 -- 제품 테이블
 CREATE TABLE product( 
 product_no INT AUTO_INCREMENT PRIMARY KEY, 
@@ -15,7 +13,8 @@ product_name VARCHAR(20) NOT NULL, -- 제품명
 product_price INT NOT NULL, -- 제품 가격
 product_cost INT NOT NULL, -- 제품 단가
 product_category VARCHAR(20) NOT NULL
-    CHECK (product_category IN ('상의', '하의', '악세사리', '신발'))
+    CHECK (product_category IN ('상의', '하의', '악세사리', '신발')),
+brand_code INT NOT NULL -- 브랜드 외래키
 );
 
 -- 품질검사 테이블
@@ -42,13 +41,16 @@ sale_registered CHAR(1) DEFAULT 'N' -- 매출 등록 여부
 -- 불량품 테이블
 CREATE TABLE defective(
 defective_no INT AUTO_INCREMENT PRIMARY KEY,
-product_no INT NOT NULL -- 상품 외래키
+product_no INT NOT NULL, -- 상품 외래키
+reason TEXT
 );
 
+-- 브랜드 테이블
 CREATE TABLE brand (
 	brand_code INT AUTO_INCREMENT PRIMARY KEY,
-    brand_name VARCHAR (30),
-    brand_phone VARCHAR(20) NOT NULL,
-    brand_account VARCHAR(30) NOT NULL,
-    brand_bank VARCHAR (30) NOT NULL
+    brand_name VARCHAR (30) CHECK (brand_name IN ('샤넬', '유니클로', '자라')),
+    brand_phone INT NOT NULL,
+    brand_account INT NOT NULL,
+    brand_bank VARCHAR (30) NOT NULL,
+    product_code INT NOT NULL -- 제품명 외래키
 );
