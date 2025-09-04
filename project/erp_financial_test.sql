@@ -85,6 +85,24 @@ CREATE TABLE transaction(
 SELECT * FROM transaction;
 SELECT * FROM department;
 
+-- 예산 잔액 구하기
+SELECT dept_name, SUM(annual_budget) AS total_budget 
+FROM budget
+JOIN department USING(dept_no)
+GROUP BY dept_name;
+
+SELECT dept_name, SUM(trans_amount) AS expenses
+FROM transaction
+JOIN department USING(dept_no)
+WHERE trans_type = '지출'
+GROUP BY dept_name;
+
+SELECT SUM(trans_amount) AS income
+FROM transaction
+JOIN department USING(dept_no)
+WHERE trans_type = '수입';
+-- ---------------------------------------
+
 -- 현재월 포함 최근 7개월 지출
 SELECT DATE_FORMAT(trans_date, '%Y-%m') AS trans_month,
        SUM(trans_amount) AS month_expenses

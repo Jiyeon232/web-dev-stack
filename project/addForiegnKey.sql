@@ -27,8 +27,6 @@ ALTER TABLE user ADD
 -- qam 외래키 생성
 ALTER TABLE product ADD
 FOREIGN KEY (product_code) REFERENCES product_name(product_code);
-ALTER TABLE brand ADD
-FOREIGN KEY (product_code) REFERENCES product_name(product_code);
 ALTER TABLE qc ADD
 FOREIGN KEY (emp_no) REFERENCES employee_info(emp_no);
 ALTER TABLE qc ADD
@@ -37,6 +35,8 @@ ALTER TABLE sale ADD
 FOREIGN KEY (product_no) REFERENCES product(product_no);
 ALTER TABLE defective ADD
 FOREIGN KEY (product_no) REFERENCES product(product_no);
+ALTER TABLE product_name ADD 
+FOREIGN KEY (brand_code) REFERENCES brand(brand_code);
 
 -- fm 외래키 생성
 -- salary → employee_info(emp_no)
