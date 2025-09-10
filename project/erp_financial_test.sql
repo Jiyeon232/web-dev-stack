@@ -82,7 +82,8 @@ CREATE TABLE transaction(
     -- emp_no INT, -- 직원 번호
     dept_no INT -- 부서 번호 (통계 처리 하려면) 
 );
-SELECT * FROM transaction;
+SELECT * FROM transaction
+ORDER BY trans_date;
 SELECT * FROM department;
 
 -- 예산 잔액 구하기
@@ -211,8 +212,8 @@ CREATE TABLE sale_manage(
 );
 SELECT * FROM sale_manage;
 SELECT * FROM sale;
-INSERT INTO sale_manage(sale_date, quantity, total_amount, product_code)
-VALUES('2025-07-18', 100, 24000000, 14);
+
+UPDATE sale_manage SET var_amount = (total_amount - (total_amount / 1.1));
 -- ************************************************
 -- 일별 매출액 합계
 SELECT sale_date, SUM(total_amount)
@@ -281,7 +282,7 @@ GROUP BY product_name;
 SELECT product_name, SUM(quantity) AS month_quantity
 FROM sale_manage
 JOIN product_name USING(product_code)
-WHERE sale_date LIKE CONCAT ('%2025-07%')
+WHERE sale_date LIKE CONCAT ('%2025-09%')
 GROUP BY product_name;
 -- ************************************************
 
@@ -311,7 +312,7 @@ SELECT
 FROM sale
 JOIN product USING(product_no)
 JOIN product_name USING(product_code)
-WHERE sale_date = '2025-08-08'
+WHERE sale_date = '2025-09-08'
 	AND sale_registered = 'N'
 GROUP BY product_name, product_code, product_price, sale_date;
 
