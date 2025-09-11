@@ -88,7 +88,9 @@ SELECT * FROM department;
 INSERT INTO transaction(trans_type, trans_amount, category, trans_desc, trans_date, dept_no) 
 VALUES('지출', 20448000, '인건비', '판매 지점 08월 급여', '2025-08-15', 6);
 UPDATE transaction SET trans_amount = 180000000 WHERE trans_no = 19;
-SELECT SUM(product_price)
+
+-- 판매 총합 구하기
+SELECT SUM(product_price) AS total_price
 		FROM sale
 		JOIN product USING(product_no)
 		JOIN product_name USING(product_code)
@@ -221,7 +223,7 @@ CREATE TABLE sale_manage(
 );
 SELECT * FROM sale_manage;
 SELECT * FROM sale;
-UPDATE sale_manage SET total_amount = 34200000 WHERE sm_no = 46;
+UPDATE sale_manage SET total_amount = 35230000 WHERE sm_no = 46;
 UPDATE sale_manage SET var_amount = (total_amount - (total_amount / 1.1));
 UPDATE sale_manage SET total_amount = ROUND(total_amount, -2);
 -- ************************************************
