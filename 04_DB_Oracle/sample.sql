@@ -26,6 +26,7 @@ insert into sungtb values(
 
 commit;
 
+-- *------------------------------*
 
 -- 부서 테이블
 create table dept(
@@ -34,6 +35,7 @@ create table dept(
 	loc varchar2(20)
 );
 
+-- *------------------------------*
 
 -- 일련번호 관리 객체
 create sequence seq_member_idx;
@@ -59,6 +61,7 @@ insert into member values(seq_member_idx.nextVal,
 
 commit;
 
+-- *------------------------------*
 
 create sequence seq_pro_idx;
 
@@ -109,3 +112,36 @@ insert into product values(
 commit;
 
 select * from product;
+
+-- 장바구니 테이블
+create sequence seq_cart_idx;
+
+create table cart(
+    c_idx number(3) primary key, -- 장바구니 일련번호
+    c_cnt number(3), -- 수량
+    idx number(3), -- 상품 번호
+    m_idx number(3) -- 회원 번호
+);
+
+-- 외래키 제약조건 추가
+alter table cart
+add constraint fk_cart foreign key(idx)
+references product(idx);
+
+-- 장바구니에 임시로 제품을 추가
+insert into cart values(seq_cart_idx.nextVal, 1, 2, 1);
+insert into cart values(seq_cart_idx.nextVal, 1, 7, 1);
+insert into cart values(seq_cart_idx.nextVal, 1, 8, 1);
+
+commit;
+
+
+-- 장바구니 조회용 view(가상의 테이블)
+create or replace view cart_view AS 
+select p.idx, c_idx, 
+    p_num, p_name, p_price, p_saleprice,
+    c_cnt, m_idx, p_image_s, c_cnt * p_saleprice amount
+from product p, cart c
+where p.idx = c.idx;
+
+select * from cart_view;
