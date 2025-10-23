@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS
+    `notification_user`,
+    `notification`,
+    `profit`,
+    `qna_workshop`,
+    `qna_admin`,
+    `review`,
+    `reservation`,
+    `payment`,
+    `schedule`,
+    `program`,
+    `wish`,
+    `follow`,
+    `workshop`,
+    `user`;
